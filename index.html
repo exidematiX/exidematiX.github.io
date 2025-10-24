@@ -1,597 +1,139 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 7.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta property="og:type" content="website">
-<meta property="og:title" content="枫叶苑">
-<meta property="og:url" content="http://example.com/index.html">
-<meta property="og:site_name" content="枫叶苑">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="Leon Kennedy">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://example.com/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : true,
-    isPost : false,
-    lang   : 'zh-CN'
-  };
-</script>
-
-  <title>枫叶苑</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeonKennedy - Wanna be a Full Stack Developer</title>
+    <link rel="stylesheet" href="css/bolg.css">
 </head>
+<body>
+    <div class="container">
+        <!-- 左侧边栏 -->
+        <aside class="sidebar">
+            <div class="profile">
+                <div class="avatar">👩‍💻</div>
+                <div class="location">📍 China-Henan</div>
+                <div class="info">💼 5yrs</div>
+            </div>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+            <div class="tags">
+                <span class="tag">密码</span>
+                <span class="tag">小学生</span>
+                <span class="tag">大一</span>
+                <span class="tag">网瘾</span>
+                <span class="tag">Linux</span>
+                <span class="tag">跑鞋</span>
+                <span class="tag">前端</span>
+                <span class="tag">骑行</span>
+            </div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div>敬请期待</div>
+                    <div class="timeline-date">2025.10</div>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <header class="header">
+                <h1>Hello I'm <span class="name">Zyyo</span></h1>
+                <div class="subtitle">😎 <strong>Full Stack</strong> Developer</div>
+                <div class="quote">
+                    🙋‍♀️ The only way to do <span class="great">great</span> is to <span class="love">love</span> what you do.
+                </div>
+
+                <div class="social-links">
+                    <button class="social-btn">⚙️</button>
+                    <button class="social-btn">✉️</button>
+                    <button class="social-btn">🔗</button>
+                    <button class="social-btn">🔔</button>
+                    <button class="social-btn">🌙</button>
+                </div>
+            </header>
+
+            <!-- GitHub贡献图 -->
+            <section class="contributions">
+                <div class="contrib-grid" id="contribGrid"></div>
+            </section>
+
+            <!-- 网站项目 -->
+            <section class="section">
+                <h2 class="section-title">🖥️ site</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-icon">☁️</div>
+                        <div class="project-title">博客</div>
+                        <div class="project-desc">记录学习日常</div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-icon">👻</div>
+                        <div class="project-title">云盘</div>
+                        <div class="project-desc">存储收藏文件</div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-icon">🎀</div>
+                        <div class="project-title">实验室</div>
+                        <div class="project-desc">收集有趣html作品</div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-icon">🎀</div>
+                        <div class="project-title">实验室</div>
+                        <div class="project-desc">收集有趣html作品</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 项目 -->
+            <section class="section">
+                <h2 class="section-title">📁 project</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-icon">☁️</div>
+                        <div class="project-title">博客</div>
+                        <div class="project-desc">记录学习日常</div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-icon">👻</div>
+                        <div class="project-title">云盘</div>
+                        <div class="project-desc">存储收藏文件</div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-icon">🎀</div>
+                        <div class="project-title">实验室</div>
+                        <div class="project-desc">收集有趣html作品</div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-icon">🎀</div>
+                        <div class="project-title">实验室</div>
+                        <div class="project-desc">收集有趣html作品</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 技能 -->
+            <section class="section">
+                <h2 class="section-title">⚡ skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-icon" style="background: #E34C26;">HTML</div>
+                    <div class="skill-icon" style="background: #264DE4;">CSS</div>
+                    <div class="skill-icon" style="background: #F7DF1E; color: #000;">JS</div>
+                    <div class="skill-icon" style="background: #61DAFB; color: #000;">⚛️</div>
+                    <div class="skill-icon" style="background: #42B883;">Vue</div>
+                    <div class="skill-icon" style="background: #3776AB;">Py</div>
+                    <div class="skill-icon" style="background: #339933;">Node</div>
+                    <div class="skill-icon" style="background: #00758F;">SQL</div>
+                    <div class="skill-icon" style="background: #E34F26;">Git</div>
+                    <div class="skill-icon" style="background: #2496ED;">🐳</div>
+                    <div class="skill-icon" style="background: #326CE5;">K8s</div>
+                    <div class="skill-icon" style="background: #FF6C37;">Rust</div>
+                    <div class="skill-icon" style="background: #007ACC;">TS</div>
+                    <div class="skill-icon" style="background: #31A8FF;">Ps</div>
+                    <div class="skill-icon" style="background: #00D8FF;">Figma</div>
+                </div>
+            </section>
+        </main>
     </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">枫叶苑</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content index posts-expand">
-            
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/09/13/%E9%9D%A2%E7%BB%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Leon Kennedy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="枫叶苑">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/09/13/%E9%9D%A2%E7%BB%8F/" class="post-title-link" itemprop="url">面经</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-09-13 14:50:16 / 修改时间：15:09:19" itemprop="dateCreated datePublished" datetime="2025-09-13T14:50:16+08:00">2025-09-13</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="面经"><a href="#面经" class="headerlink" title="面经"></a>面经</h1><h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="项目拷打"><a href="#项目拷打" class="headerlink" title="项目拷打"></a>项目拷打</h3><ul>
-<li>遇见的问题,项目的亮点和难点</li>
-<li>功能拷打</li>
-<li><strong>地下城探险</strong>：1.使用可靠的UDP（TCP中有粘包特性会形成延迟，UDP可无延迟发送）</li>
-</ul>
-<hr>
-<h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><hr>
-<h3 id="深拷贝与浅拷贝"><a href="#深拷贝与浅拷贝" class="headerlink" title="深拷贝与浅拷贝"></a>深拷贝与浅拷贝</h3><ul>
-<li><strong>浅拷贝</strong>是只复制对象的值，而不进行资源的复制，共享一块内存，容易造成一个对象修改值后另一个值也改变；一个对象删除后另一个对象的指针成野指针</li>
-<li><strong>深拷贝</strong>是同时进行资源的复制，开辟一块新的内存，互不影响</li>
-</ul>
-<h3 id="多态的实现"><a href="#多态的实现" class="headerlink" title="多态的实现"></a>多态的实现</h3><ul>
-<li>编译时多态：<strong>函数重载</strong>，<strong>运算符重载</strong></li>
-<li>运行时多态：<strong>虚函数</strong></li>
-</ul>
-<h3 id="虚函数"><a href="#虚函数" class="headerlink" title="虚函数"></a>虚函数</h3><ul>
-<li>虚函数主要由虚函数指针与虚函数表构成</li>
-<li><strong>虚函数表</strong>：一般被分配在只读数据段中</li>
-</ul>
-<h3 id="内存分配"><a href="#内存分配" class="headerlink" title="内存分配"></a>内存分配</h3><ul>
-<li><strong>栈区</strong>：主要存储函数参数，局部变量，函数结束后自动销毁</li>
-<li><strong>堆区</strong>：动态分配内存区（手动分配内存），用malloc和free等来进行管理</li>
-<li><strong>静态区</strong>：存储静态变量与全局变量，初始化的变量存于数据段，未初始的存于bss段中；程序启动分配，结束释放</li>
-<li><strong>常量区</strong>：const关键字定义的常量</li>
-<li><strong>代码区</strong>：编译后的代码（只读）</li>
-</ul>
-<h3 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h3><ul>
-<li>智能指针主要是解决内存泄露，野指针，悬空指针问题</li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhizhengguan/article/details/112302192">C&#x2F;C++面试：什么是智能指针？智能指针有什么作用？分为哪几种？各自有什么样的特点？_什么是智能指针?智能指针有什么作用?分为哪几种?各自有什么样的特点?-CSDN博客</a></li>
-</ul>
-<h3 id="C-关键字"><a href="#C-关键字" class="headerlink" title="C++关键字"></a>C++关键字</h3><ul>
-<li><strong>extern</strong>：当与C+func连用时告诉编译器应当按照C的规则去翻译</li>
-</ul>
-<h2 id="C-1"><a href="#C-1" class="headerlink" title="C#"></a>C#</h2><hr>
-<h3 id="C-底层原理"><a href="#C-底层原理" class="headerlink" title="C#底层原理"></a>C#底层原理</h3><h4 id="mono和IL2CPP"><a href="#mono和IL2CPP" class="headerlink" title="mono和IL2CPP"></a><strong>mono和IL2CPP</strong></h4><ul>
-<li><strong>mono</strong>： 由编译器编译为<strong>IL</strong>（中间语言），再通过<strong>JIT</strong>（即时编译）编译为机器码。<strong>优点</strong>：无需额外编译，开发和测试效率高。支持运行时动态加载和执行动态生成的代码。跨平台支持。<strong>缺点</strong>：JIT编译在运行时进行，性能不如预编译的机器代码。IL易于反编译，安全性低。</li>
-<li><strong>IL2CPP</strong>：是unity自研的工具链，先将C#编译成IL，再将IL代码转成C++代码，最后编译成机器代码。<strong>优点</strong>：高性能。安全性高。跨平台支持，一致性。<strong>缺点</strong>：编译耗时，无法动态支持。</li>
-</ul>
-<h3 id="结构体与类"><a href="#结构体与类" class="headerlink" title="结构体与类"></a><strong>结构体与类</strong></h3><ul>
-<li>class是引用类型，struct是值类型；class能给字段赋初始值；创建新对象的方式不同</li>
-<li>类适用于<strong>数据持久化</strong>，特别是需要频繁改动，因为是引用类型，所以传递的是指针（一般用于复杂的游戏对象，组件系统，场景管理）</li>
-<li>struct一般用于<strong>轻量化的数据</strong>，不经常改动（比如物理，数学）</li>
-</ul>
-<h3 id="引用类型与值类型"><a href="#引用类型与值类型" class="headerlink" title="引用类型与值类型"></a><strong>引用类型与值类型</strong></h3><ul>
-<li>变量存储是直接存储的数据。</li>
-<li>引用类型持有的是数据的引用。（例如：当声明一个class时，先在栈上开辟一块内存用于存储地址，当实例化此类时才在堆上分配空间并将地址给栈空间。）</li>
-</ul>
-<h3 id="拆箱与装箱"><a href="#拆箱与装箱" class="headerlink" title="拆箱与装箱"></a><strong>拆箱与装箱</strong></h3><ul>
-<li>拆箱：将引用类型转化为值类型，将堆上的值拷贝到栈上</li>
-<li>装箱：将值类型转化为引用类型，，在堆上分配内存，并将栈上的值拷贝到堆上（更消耗，因为涉及到堆内存的分配）</li>
-<li><strong>避免boxing与unboxing</strong>：使用泛型避免装箱；避免频繁使用ToString避免频繁装箱；</li>
-</ul>
-<h3 id="委托与事件"><a href="#委托与事件" class="headerlink" title="委托与事件"></a>委托与事件</h3><ul>
-<li><strong>委托</strong>像是一类函数（返回值类型与参数列表都一致）的链表 同时委托也是一种类型。（delegate）</li>
-<li><strong>事件</strong>是一种特殊的委托，对<strong>委托</strong>再一次封装，禁用&#x3D;，更加安全。只有定义他的类才可调用。（event）</li>
-</ul>
-<h3 id="字典（Dictionary）"><a href="#字典（Dictionary）" class="headerlink" title="字典（Dictionary）"></a>字典（Dictionary）</h3><ul>
-<li>字典底层基于HashTable实现，大多数情况下查找，插入和删除时间复杂度都为O(1)；</li>
-<li><strong>哈希函数</strong> 当向字典添加一个键值对时，字典使用哈希函数计算出一个哈希值，<strong>哈希值</strong>决定了键值对在底层数组的存储位置</li>
-<li><strong>哈希函数</strong> 通常调用GetHashCode()函数 ，方法返回一个整数值</li>
-<li>哈希表的结构：<strong>数组</strong> 字典的底层是一个数组（俗称“桶”），每个桶存储一个链表来处理哈希冲突，<strong>链表</strong> 当两个键值对映射到同一个桶里面，就使用链表存储</li>
-<li>哈希冲突过多导致：1，性能下降，查找和删除的复杂度可能会降成O(1)</li>
-</ul>
-<h3 id="集合（List）"><a href="#集合（List）" class="headerlink" title="集合（List）"></a>集合（List）</h3><ul>
-<li>List底层是由动态数组实现，具有自动调整大小的能力</li>
-<li><strong>扩容</strong>通常是将数组大小翻倍，这样可以减少频繁扩容，提高性能。</li>
-<li><strong>扩容</strong>方式：创建一个更大的数组，，将旧数组中的元素放在新数组中，将新数组的引用赋给内部存储的数组。</li>
-<li>List并<strong>不是线程安全</strong>的，因此在多线程情况下需要注意线程安全，可通过锁机制或者其他线程同步技术来确保线程安全。</li>
-</ul>
-<h3 id="无序数组如何优化增删效率"><a href="#无序数组如何优化增删效率" class="headerlink" title="无序数组如何优化增删效率"></a>无序数组如何优化增删效率</h3><ul>
-<li>采用<strong>尾部操作</strong>优化效率，在尾部添加元素，将要删除的元素与尾部交换位置</li>
-<li>使用<strong>哈希表</strong>或<strong>链表</strong>进行优化</li>
-</ul>
-<h3 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h3><ul>
-<li><strong>GC</strong>:只回收堆中内存（栈中内存自动释放），gc是通过代的机制实现[<a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_40003796/article/details/128041837">C#【必备技能篇】垃圾回收机制(GC)的理解（资源清理+内存管理）_c# gc-CSDN博客</a>]</li>
-</ul>
-<h3 id="四叉树搜索"><a href="#四叉树搜索" class="headerlink" title="四叉树搜索"></a>四叉树搜索</h3><h3 id="八叉树搜索"><a href="#八叉树搜索" class="headerlink" title="八叉树搜索"></a>八叉树搜索</h3><hr>
-<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><hr>
-<h3 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h3><h4 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h4><p>时间复杂度：O(N^2)；空间复杂度：O(1)；稳定</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">InsertSort</span><span class="params">(<span class="type">int</span> *a,<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">		<span class="type">int</span> x=a[i<span class="number">+1</span>];</span><br><span class="line">        <span class="type">int</span> end=i;</span><br><span class="line">        <span class="keyword">while</span>(end&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[end]&gt;x)&#123;</span><br><span class="line">                a[end<span class="number">+1</span>]=a[end];</span><br><span class="line">                end--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        a[end<span class="number">+1</span>]=x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h4><p>时间复杂度：不稳定，根据gap取值进行改变；空间复杂度：O(1)；不稳定</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">ShellSort</span><span class="params">(<span class="type">int</span> *a,<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> gap=n;</span><br><span class="line">    <span class="keyword">while</span>(gap&gt;<span class="number">1</span>)&#123;</span><br><span class="line">        gap=gap/<span class="number">3</span><span class="number">+1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n-gap;i++)&#123;</span><br><span class="line">            <span class="type">int</span> end=i;</span><br><span class="line">            <span class="type">int</span> x=a[end+gap];</span><br><span class="line">            <span class="keyword">while</span>(end&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(a[end]&gt;x)&#123;</span><br><span class="line">                    a[end+gap]=a[end];</span><br><span class="line">                    end-=gap;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            a[end+gap]=x;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h4><p>时间复杂度：不稳定，好的情况O(logn*n)；空间复杂度：O(1)；不稳定</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">QuickSort</span><span class="params">(<span class="type">int</span> arry[],<span class="type">int</span> low,<span class="type">int</span> high)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> t=low;</span><br><span class="line">    <span class="type">int</span> i=low,j=high;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;j)&#123;</span><br><span class="line">    <span class="keyword">while</span>(arry[i]&lt;=arry[t]&amp;&amp;i&lt;j)</span><br><span class="line">        i++;</span><br><span class="line">    <span class="keyword">while</span>(arry[j]&gt;=arry[t]&amp;&amp;i&lt;j)</span><br><span class="line">        j--;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;j)<span class="built_in">swap</span>(arry[i],arry[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">swap</span>(arry[i],arry[t]);</span><br><span class="line">    <span class="built_in">QuickSort</span>(arry,i<span class="number">+1</span>,high);</span><br><span class="line">    <span class="built_in">QuickSort</span>(arry,low,i<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h4><h3 id="搜索算法"><a href="#搜索算法" class="headerlink" title="搜索算法"></a>搜索算法</h3><h4 id="二分"><a href="#二分" class="headerlink" title="二分"></a>二分</h4><p>局限性大，只能适用于有序数组</p>
-<h4 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h4><h2 id="unity"><a href="#unity" class="headerlink" title="unity"></a>unity</h2><hr>
-<h3 id="游戏开发"><a href="#游戏开发" class="headerlink" title="游戏开发"></a>游戏开发</h3><ul>
-<li>Monobehaviour的生命流程：Awake，OnEnable，Start，Update，FixedUpdate，LateUpdate，OnDiabale，OnDestroy</li>
-<li><strong>协程</strong>：是一种轻量级的用户空间线程，被广泛用于异步，延迟操作，分帧处理；协程是基于IEnumerator和C#的关键字yield实现，yeild将代码分成几段放入IE容器中依次执行。</li>
-</ul>
-<h4 id="网络开发"><a href="#网络开发" class="headerlink" title="网络开发"></a>网络开发</h4><ul>
-<li><strong>GDC中的SpaceTime</strong>：将数据库与服务端相嵌合</li>
-<li>网络同步策略：<strong>帧同步</strong>：适合网络波动较大，及时要求高的游戏。<strong>状态同步</strong>：服务器权威最高，反作弊能力强，对网络要求高。</li>
-<li><strong>帧同步</strong>：  1.需要准确的物理和数学运算库（浮点数有误差（解决方案：取整，容许小概率误差，逻辑编写分离））。2.  短线重连（进行追帧）。</li>
-</ul>
-<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><h4 id="减少drawcall与overdraw"><a href="#减少drawcall与overdraw" class="headerlink" title="减少drawcall与overdraw"></a>减少drawcall与overdraw</h4><ul>
-<li><strong>drawcall</strong>是指cpu调用gpu进行渲染特定的对象或材质</li>
-<li></li>
-<li><strong>overdraw</strong>是指在同一像素点进行多次渲染</li>
-<li>减少drawcall可以通过合批处理的方法</li>
-</ul>
-<h4 id="滥用update影响性能"><a href="#滥用update影响性能" class="headerlink" title="滥用update影响性能"></a>滥用update影响性能</h4><ul>
-<li>update会在所有激活的monobehaviour中被调用，造成性能损失</li>
-<li>解决方法：<strong>合并update</strong>，<strong>事件驱动</strong>，<strong>协程</strong>，<strong>按需激活</strong>，<strong>对象池</strong></li>
-</ul>
-<h4 id="联机同步"><a href="#联机同步" class="headerlink" title="联机同步"></a>联机同步</h4><ul>
-<li>保持游戏的平稳性和流畅性的常见方法是建立<strong>缓存区</strong>，将数据包存入队列中，客户端每次tick都执行处理一个数据包，这是一个<strong>增加延迟，减少抖动</strong>的方法。</li>
-<li><strong>客户端预测</strong>：</li>
-<li><strong>帧锁定</strong>：</li>
-</ul>
-<h3 id="渲染管线"><a href="#渲染管线" class="headerlink" title="渲染管线"></a>渲染管线</h3><h3 id="ECS框架"><a href="#ECS框架" class="headerlink" title="ECS框架"></a>ECS框架</h3><ul>
-<li>ECS是一种数据导向的架构模式，以传统面向对象的unity开发不同的是数据与逻辑完全分离</li>
-<li>ECS的优点是1.相似的组件存储在连续的内存块中而不是分散在堆中，提高内存内存命中率。2.避免虚函数调用链的开销，直接调用函数而不是自动调用。3.减少垃圾回收，用结构体代替类，减少gc。</li>
-<li>ECS实现事件和通信的方法：</li>
-<li>ECS实现对象间的交互：</li>
-</ul>
-<h3 id="热更新"><a href="#热更新" class="headerlink" title="热更新"></a>热更新</h3><ul>
-<li><strong>HybridCLR热更新</strong>：</li>
-</ul>
-<h2 id="Lua"><a href="#Lua" class="headerlink" title="Lua"></a>Lua</h2><h3 id="lua实现面向对象特性"><a href="#lua实现面向对象特性" class="headerlink" title="lua实现面向对象特性"></a>lua实现面向对象特性</h3><ul>
-<li>通过lua的元表以及_index索引特性实现</li>
-<li></li>
-</ul>
-<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><hr>
-<h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><ul>
-<li>懒汉模式：线程不安全，需要加锁</li>
-<li>饿汉式：线程安全，main函数开始时就创建</li>
-</ul>
-<h3 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h3><p>* </p>
-<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><hr>
-<h3 id="死锁与银行家算法"><a href="#死锁与银行家算法" class="headerlink" title="死锁与银行家算法"></a>死锁与银行家算法</h3><h2 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h2><hr>
-<h3 id="OSI模型七层模型"><a href="#OSI模型七层模型" class="headerlink" title="OSI模型七层模型"></a>OSI模型七层模型</h3><ul>
-<li>物理层，数据链路层，网络层，传输层，会话层，表示层，应用层</li>
-</ul>
-<h3 id="TCP-IP协议"><a href="#TCP-IP协议" class="headerlink" title="TCP&#x2F;IP协议"></a>TCP&#x2F;IP协议</h3><ul>
-<li><p>TCP与UDP区别：TCP传输模式是流传输，UDP传输是数据报连接；TCP是</p>
-</li>
-<li><p><strong>三次握手与四次挥手</strong>：1.客户端发送SYN报文段，请求建立连接随机生成一个序列号。2.服务端收到SYN数据段，回复SYN-ACK数据段确认序列号并发送自己的序列号。3.客户端收到SYN-ACK后，发送ACK报文段，确认序列号建立连接。1.客户端发送FIN报文段表示要断开连接。2.服务端收到FIN确认断开连接，发送ACK。3.服务端发送FIN报文段表示断开连接。4.客户端收到FIN发送ACK断开连接。</p>
-</li>
-<li><p><strong>粘包和半包</strong>：是因为网络带宽限制，大数据包在传输过程中被分成多段或多个数据包被看作一个数据包，常见的解决方案是为数据包添加包头清晰定义信息边界。</p>
-</li>
-<li><p><strong>滑动窗口</strong>：是TCP实现发送方和接受方之间的流量控制和可靠性传输的机制，发送方不需要等待每个数据段的确认从而提高传输效率。</p>
-</li>
-</ul>
-<h2 id="计算机组成原理"><a href="#计算机组成原理" class="headerlink" title="计算机组成原理"></a>计算机组成原理</h2><hr>
-<h1 id="图形学"><a href="#图形学" class="headerlink" title="图形学"></a><strong>图形学</strong></h1><hr>
-<h3 id="渲染方式"><a href="#渲染方式" class="headerlink" title="渲染方式"></a>渲染方式</h3><ul>
-<li><strong>PBR</strong>:基于物理的渲染方式</li>
-</ul>
-<h3 id="渲染过程"><a href="#渲染过程" class="headerlink" title="渲染过程"></a>渲染过程</h3><p><strong>应用程序阶段</strong></p>
-<ul>
-<li>进行视锥剔除，查询可能绘制的图像并渲染数据，设置渲染状态和绑定shader，调用drawcall</li>
-</ul>
-<p><strong>几何阶段</strong></p>
-<ul>
-<li>顶点处理阶段</li>
-<li>裁剪阶段</li>
-</ul>
-<p><strong>光栅化阶段</strong></p>
-<p><strong>像素处理阶段</strong></p>
-<h4 id="渲染优化"><a href="#渲染优化" class="headerlink" title="渲染优化"></a>渲染优化</h4><ul>
-<li><p>drawcall（CPU调用GPU进行绘制），过多的drawcall会导致性能下降，进行批处理减少drawcall可以有效解决（通常是将多个材质合并为一个材质）</p>
-</li>
-<li><p>过度绘制会导致overdraw（多次绘制同一像素）</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/09/13/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Leon Kennedy">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="枫叶苑">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/09/13/hello-world/" class="post-title-link" itemprop="url">hellow</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-09-13 13:40:25 / 修改时间：15:09:51" itemprop="dateCreated datePublished" datetime="2025-09-13T13:40:25+08:00">2025-09-13</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Leon Kennedy</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">2</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2025</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Leon Kennedy</span>
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
+    <script src="js/bolg.js"></script>
 </body>
 </html>
