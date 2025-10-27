@@ -7,8 +7,8 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Open mainmenu.html",
-            "file": "d:\\BlogProject\\Blog2\\mainmenu.html"
+            "name": "Open index.html",
+            "file": "d:\\BlogProject\\Blog2\\index.html"
         }
     ]
 }

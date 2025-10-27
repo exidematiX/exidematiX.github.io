@@ -1,4 +1,4 @@
-// Éú³ÉGitHub¹±Ï×Í¼
+// github è´¡çŒ®å›¾
 const grid = document.getElementById('contribGrid');
 const levels = [0, 1, 2, 3, 4];
 
@@ -12,7 +12,7 @@ for (let i = 0; i < 364; i++) {
     grid.appendChild(cell);
 }
 
-// Ìí¼ÓÏîÄ¿¿¨Æ¬µã»÷Ğ§¹û
+// é¡¹ç›®å¡ç‰‡ç‚¹å‡»åŠ¨ç”»
 document.querySelectorAll('.project-card').forEach(card => {
     card.addEventListener('click', function() {
         this.style.transform = 'scale(0.95)';
@@ -21,3 +21,17 @@ document.querySelectorAll('.project-card').forEach(card => {
         }, 200);
     });
 });
+
+// ç‚¹å‡»åšå®¢å›¾æ ‡è·³è½¬
+const blogBtn = document.getElementById('blog-button');
+if (blogBtn) {
+    blogBtn.tabIndex = 0; // å…è®¸é”®ç›˜èšç„¦
+    blogBtn.addEventListener('click', function() {
+        window.location.href = './src/bolg.html';
+    });
+    blogBtn.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            window.location.href = 'bolg.html';
+        }
+    });
+}
