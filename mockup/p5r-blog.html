@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="red">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P5R 博客页效果图</title>
+<style>
+:root {
+    --accent:#e60012; --gold:#ffd700;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+    font-family:'Segoe UI','Microsoft YaHei',sans-serif;
+    background:#0a0a0a; color:#fff; min-height:100vh;
+    overflow-x:hidden;
+}
+/* 半调网点 */
+body::before {
+    content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:radial-gradient(circle, var(--accent) 1.4px, transparent 1.4px);
+    background-size:16px 16px; opacity:.18;
+}
+/* 噪点 */
+body::after {
+    content:""; position:fixed; inset:0; z-index:50; pointer-events:none;
+    opacity:.05; mix-blend-mode:overlay;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ========== 顶部阅读进度条 ========== */
+.progress { position:fixed; top:0; left:0; height:5px; background:var(--accent); width:0%; z-index:60; transition:width .1s; box-shadow:0 0 10px var(--accent); }
+
+/* ========== 布局 ========== */
+.container {
+    max-width:1400px; margin:0 auto; padding:90px 26px 60px;
+    display:grid; grid-template-columns:340px 1fr; gap:40px;
+    position:relative; z-index:1;
+}
+
+.home-link {
+    display:inline-block; color:#fff; text-decoration:none; font-size:14px;
+    font-style:italic; letter-spacing:2px; margin-bottom:14px;
+    background:#fff; color:#000; padding:4px 20px; transform:skewX(-12deg);
+    box-shadow:4px 4px 0 var(--accent); font-weight:bold; transition:.2s;
+}
+.home-link:hover { background:var(--accent); color:#fff; transform:skewX(-12deg) translateX(4px); box-shadow:5px 5px 0 #fff; }
+
+/* ========== 左侧列表 ========== */
+.list-title {
+    font-family:'Impact','Arial Black',sans-serif;
+    font-size:42px; font-style:italic; line-height:.95;
+    color:#fff; text-shadow:4px 4px 0 var(--accent), 8px 8px 0 #000;
+    transform:skew(-6deg) rotate(-2deg); margin-bottom:22px;
+}
+.libel {
+    display:block; font-size:13px; color:var(--accent); font-style:italic;
+    letter-spacing:3px; margin-top:6px; font-family:'Segoe UI';
+}
+
+/* --- 精选大卡片 --- */
+.feature-card {
+    background:#111; border:3px solid #fff; padding:0 0 20px 0;
+    clip-path:polygon(0 3%, 5% 0, 96% 1%, 100% 95%, 92% 100%, 2% 98%);
+    box-shadow:10px 10px 0 var(--accent), 10px 10px 0 3px #000;
+    cursor:pointer; transform:rotate(-2deg); margin-bottom:32px;
+    transition:.25s; position:relative; overflow:hidden;
+    animation:dropIn .55s cubic-bezier(.2,1.6,.35,1) both;
+}
+.feature-card:hover { transform:rotate(0) translateY(-6px) scale(1.04); box-shadow:14px 14px 0 var(--accent), 14px 14px 0 3px #000; z-index:3; }
+.feature-card .f-head {
+    background:var(--accent); color:#fff; padding:12px 20px;
+    font-family:'Impact','Arial Black',sans-serif; font-size:20px; font-style:italic;
+    transform:skew(-3deg); border-bottom:3px solid #fff; margin-bottom:16px;
+    clip-path:polygon(0 0,100% 0,96% 100%,0 100%);
+}
+.feature-card .f-icon { font-size:44px; text-align:center; display:block; margin-bottom:8px; }
+.feature-card .f-title { font-size:19px; font-weight:800; text-align:center; font-style:italic; padding:0 12px; line-height:1.25; }
+.feature-card .f-meta { text-align:center; font-size:12px; color:#888; margin-top:8px; font-family:'Segoe UI'; }
+.feature-card .f-tags { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:12px; }
+.feature-card .f-excerpt { text-align:center; font-size:12.5px; color:#b8b8b8; padding:10px 18px 0; font-family:'Segoe UI'; line-height:1.55; }
+
+/* NEW/HOT 丝带 */
+.ribbon {
+    position:absolute; top:16px; right:-14px; background:var(--accent);
+    color:#fff; font-size:11px; font-weight:bold; font-style:italic;
+    padding:4px 28px; transform:rotate(45deg); letter-spacing:2px;
+    box-shadow:0 0 12px var(--accent); border:1px solid #fff; font-family:'Impact';
+}
+.ribbon.feature { background:var(--gold); color:#000; box-shadow:0 0 12px var(--gold); }
+
+/* --- 普通小卡片（交替倾斜） --- */
+.post-card {
+    background:rgba(0,0,0,.55); border-left:6px solid var(--accent);
+    padding:16px 18px; margin-bottom:14px; cursor:pointer;
+    display:flex; align-items:center; gap:14px; position:relative;
+    font-family:'Microsoft YaHei'; transition:.2s; overflow:hidden;
+    clip-path:polygon(0 0,100% 0,99% 100%,0 98%);
+    animation:dropIn .55s cubic-bezier(.2,1.6,.35,1) both;
+    animation-delay:.25s;
+}
+.post-card:nth-child(odd)  { transform:skew(-4deg) rotate(-.6deg); }
+.post-card:nth-child(even) { transform:skew(4deg) rotate(.6deg); }
+.post-card:hover {
+    background:#fff; color:#000; transform:skew(0) translateX(8px);
+    animation:jitter .25s steps(2) 2;
+}
+.post-card .p-emoji { font-size:32px; flex-shrink:0; }
+.post-card .p-body { flex:1; min-width:0; }
+.post-card .p-title { font-size:16.5px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.post-card:hover .p-title { font-style:italic; }
+.post-card .p-meta { font-size:11px; opacity:.65; margin-top:4px; font-family:'Segoe UI'; }
+.post-card .p-tags { display:flex; gap:6px; margin-top:7px; flex-wrap:wrap; }
+.post-card .ribbon { padding:3px 22px; font-size:10px; }
+
+/* 标签片 */
+.tag {
+    font-size:10px; font-weight:bold; padding:2px 9px;
+    background:var(--accent); color:#fff; transform:skewX(-10deg);
+    display:inline-block; font-family:'Segoe UI',sans-serif; letter-spacing:.5px;
+    border:1px solid #fff;
+}
+.post-card:hover .tag { background:#000; color:#fff; }
+
+/* ========== 右侧文章 ========== */
+.post-view { position:relative; }
+
+/* 文章头模版 */
+.article-head { margin-bottom:36px; position:relative; }
+.art-date {
+    font-family:'Impact','Arial Black',sans-serif; font-size:88px; line-height:.9;
+    color:transparent; -webkit-text-stroke:2.5px var(--accent); opacity:.65;
+    font-style:italic; transform:rotate(-3deg); display:block; margin-bottom:2px;
+}
+.art-title {
+    font-size:46px; font-weight:900; font-style:italic; line-height:1.1;
+    text-shadow:4px 4px 0 var(--accent), 7px 7px 0 #000;
+    transform:skew(-4deg); display:inline-block; letter-spacing:-1px;
+}
+.art-slash {
+    height:6px; margin:18px 0 26px;
+    background:repeating-linear-gradient(-35deg,var(--accent) 0 18px,transparent 18px 26px);
+    transform:skewY(-.6deg);
+}
+.art-meta {
+    display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;
+    font-family:'Segoe UI'; font-size:12.5px;
+}
+.art-meta .mchip {
+    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2);
+    padding:4px 13px; transform:skewX(-10deg);
+}
+
+/* 正文 */
+.markdown-body {
+    font-size:16.5px; line-height:1.9; color:#dfe4ea;
+    max-width:760px; margin:0 auto;
+    font-family:'Segoe UI','Microsoft YaHei',sans-serif;
+}
+.markdown-body h2, .markdown-body h3 {
+    position:relative; padding-left:22px; font-style:italic; color:#fff;
+}
+.markdown-body h2::before, .markdown-body h3::before {
+    content:""; position:absolute; left:0; top:.35em;
+    width:0; height:0; border:11px solid transparent; border-left:16px solid var(--accent);
+    transform:translateY(-1px);
+}
+.markdown-body h1 { font-size:2.1em; font-style:italic; border-bottom:3px solid var(--accent); padding-bottom:.25em; margin:1.5em 0 .7em; color:#fff; }
+.markdown-body h2 { font-size:1.6em; margin:1.35em 0 .55em; }
+.markdown-body h3 { font-size:1.28em; color:#16b9ff; }
+.markdown-body p { margin:.85em 0; }
+.markdown-body a { color:#ff5a66; font-weight:600; }
+.markdown-body ul, .markdown-body ol { padding-left:1.65em; margin:.85em 0; }
+.markdown-body li { margin:.4em 0; }
+.markdown-body li::marker { color:var(--accent); font-size:1.15em; }
+.markdown-body strong { color:#ffd27f; }
+.markdown-body blockquote {
+    border-left:5px solid var(--accent); background:rgba(230,0,18,.07);
+    padding:12px 18px; margin:1.15em 0; border-radius:0 10px 10px 0;
+    font-style:italic; transform:skewX(-1.6deg);
+}
+.markdown-body blockquote p { margin:.3em 0; }
+.markdown-body code {
+    background:rgba(0,0,0,.42); padding:2px 7px; border-radius:5px;
+    font-family:'Consolas',monospace; font-size:.88em; color:#ff9eb5;
+    border:1px solid rgba(230,0,18,.25);
+}
+.markdown-body pre {
+    background:rgba(0,0,0,.5); padding:16px 18px; border-radius:10px;
+    overflow-x:auto; margin:1.15em 0; position:relative;
+    border:2px solid rgba(230,0,18,.35); box-shadow:5px 5px 0 rgba(230,0,18,.35);
+    transform:skewX(-1deg);
+}
+.markdown-body pre::before {
+    content:"CODE"; position:absolute; top:0; right:0; background:var(--accent);
+    color:#fff; font-size:9px; padding:2px 8px; letter-spacing:1px;
+    font-family:'Segoe UI'; font-weight:bold;
+}
+.markdown-body pre code { background:none; padding:0; color:#e6edf3; border:none; transform:none; }
+.markdown-body hr { border:none; border-top:3px dashed rgba(230,0,18,.5); margin:2em 0; }
+.markdown-body table { border-collapse:collapse; width:100%; margin:1em 0; }
+.markdown-body th, .markdown-body td { border:1px solid rgba(255,255,255,.18); padding:8px 12px; }
+.markdown-body th { background:var(--accent); color:#fff; font-style:italic; }
+.markdown-body tbody tr:nth-child(even) { background:rgba(255,255,255,.04); }
+.markdown-body img { max-width:100%; border-radius:8px; border:3px solid var(--accent); box-shadow:5px 5px 0 #000; }
+
+/* 悬浮目录侧条 (SIMULATE) */
+.toc-mini {
+    position:fixed; right:18px; top:50%; transform:translateY(-50%);
+    z-index:60; display:flex; flex-direction:column; gap:9px; align-items:flex-end;
+    font-family:'Segoe UI'; opacity:.75;
+}
+.toc-mini span {
+    width:10px; height:10px; background:#555; cursor:pointer;
+    clip-path:polygon(30% 0,100% 0,70% 100%,0 100%); transition:.2s;
+}
+.toc-mini span:hover, .toc-mini span.on { background:var(--accent); transform:scale(1.55); box-shadow:0 0 8px var(--accent); }
+.toc-label {
+    position:fixed; right:14px; top:calc(50% + 90px); transform:translateY(-50%);
+    writing-mode:vertical-rl; font-size:10px; color:#888; letter-spacing:3px;
+    font-family:'Segoe UI'; z-index:60;
+}
+
+/* 底部 */
+.footer-bar {
+    margin:40px 0 10px; text-align:center;
+    font-size:12px; color:#555; font-family:'Segoe UI'; letter-spacing:4px;
+}
+
+/* 动效 */
+@keyframes dropIn {
+    0% { opacity:0; transform:translateY(-65px) rotate(var(--r,0deg)) scale(1.35); }
+    100% { opacity:1; transform:none; }
+}
+
+@media (max-width:900px) {
+    .container { grid-template-columns:1fr; padding-top:80px; }
+    .art-date { font-size:52px; }
+    .art-title { font-size:30px; }
+    .toc-mini, .toc-label { display:none; }
+}
+
+/* 主题切换：简化继承 */
+[data-theme="blue"] { --accent:#2a5cf0; }
+[data-theme="gold"] { --accent:#ffae00; }
+[data-theme="white"] { --accent:#f2f2f2; }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<div class="container">
+    <!-- 左侧列表 -->
+    <aside>
+        <a class="home-link" href="../index.html">← BACK / 返回主页</a>
+        <h1 class="list-title">
+            📚 INTEL LIB<span class="libel">— 心之声 · ARCHIVES</span>
+        </h1>
+
+        <!-- 最新一篇：精选大卡片 -->
+        <div class="feature-card">
+            <span class="ribbon feature">NEW ★</span>
+            <div class="f-head">INTELLIGENCE REPORT</div>
+            <span class="f-icon">🧠</span>
+            <div class="f-title">面经</div>
+            <div class="f-meta">2026-06-24 · 游戏 / 深入</div>
+            <div class="f-excerpt">遇见的问题,项目的亮点和难点</div>
+            <div class="f-tags">
+                <span class="tag">C++</span><span class="tag">C#</span><span class="tag">网络同步</span>
+            </div>
+        </div>
+
+        <!-- 次新：大卡片假数据，由下一批小卡片填充列表 -->
+        <div class="post-card">
+            <span class="ribbon">NEW</span>
+            <div class="p-emoji">🎮</div>
+            <div class="p-body">
+                <div class="p-title">地下城探险 · 项目拷打</div>
+                <div class="p-meta">2026-06-04</div>
+                <div class="p-tags"><span class="tag">UDP</span><span class="tag">帧同步</span><span class="tag">Unity</span></div>
+            </div>
+        </div>
+        <div class="post-card" style="opacity:.85;">
+            <div class="p-emoji">📖</div>
+            <div class="p-body">
+                <div class="p-title">（示例）旧文章标题甲</div>
+                <div class="p-meta">2025-12-01</div>
+                <div class="p-tags"><span class="tag">算法</span><span class="tag">刷题</span></div>
+            </div>
+        </div>
+        <div class="post-card" style="opacity:.85;">
+            <div class="p-emoji">🖼️</div>
+            <div class="p-body">
+                <div class="p-title">（示例）旧文章标题乙</div>
+                <div class="p-meta">2025-10-19</div>
+                <div class="p-tags"><span class="tag">随笔</span></div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 右侧文章 -->
+    <main class="post-view">
+        <header class="article-head">
+            <span class="art-date">2026.06.24</span>
+            <h1 class="art-title">面经</h1>
+            <div class="art-slash"></div>
+            <div class="art-meta">
+                <span class="mchip">👤 ℒℯℴ𝓃</span><span class="mchip">⏱ 8 min</span>
+                <span class="mchip">🗂 C++ · C# · 智能指针</span>
+            </div>
+        </header>
+
+        <article class="markdown-body">
+            <h2>常见问题</h2>
+            <h3>项目拷打</h3>
+            <ul><li>遇见的问题、项目的亮点和难点</li><li>功能拷打</li><li><strong>地下城探险</strong>：使用可靠的 UDP（TCP 有粘包特性形成延迟，UDP 可无延迟发送）</li></ul>
+
+            <h2>C++</h2>
+            <h3>深拷贝与浅拷贝</h3>
+            <ul>
+                <li><strong>浅拷贝</strong>是只复制对象的值而不进行资源的复制，共享一块内存，容易造成一个对象修改值后另一个对象值也改变；一个对象删除后另一个对象的指针成野指针</li>
+                <li><strong>深拷贝</strong>是同时进行资源的复制，开辟一块新的内存，互不影响</li>
+            </ul>
+
+            <h3>多态的实现</h3>
+            <ul>
+                <li>编译时多态：<strong>函数重载</strong>、<strong>运算符重载</strong></li>
+                <li>运行时多态：<strong>虚函数</strong>（虚函数指针 + 虚函数表，表在只读数据段）</li>
+            </ul>
+
+            <blockquote>面试官拷打的不是知识点，是<strong>你有没有真的踩过</strong>。</blockquote>
+
+            <h3>智能指针</h3>
+            <p>智能指针主要解决 <code>内存泄露</code>、<code>野指针</code>、<code>悬空指针</code> 三类问题……</p>
+
+<pre><code>struct FrameInput {
+    int  playerId;   // 玩家ID
+    int  frameId;    // 帧ID
+    byte inputMask;  // 输入
+    FixedVector2 aimDir; // 定点数代替浮点数
+};</code></pre>
+
+            <h2>C#</h2>
+            <h3>mono 和 IL2CPP</h3>
+            <ul>
+                <li><strong>mono</strong>：编译为 <code>IL</code> → <strong>JIT</strong> 即时编译机器码。优点：无需额外编译、支持运行时动态加载、跨平台。缺点：性能不如预编译、IL 易反编译</li>
+                <li><strong>IL2CPP</strong>：IL → C++ → 机器码。优点：高性能、安全性高。缺点：编译耗时、无法动态支持</li>
+            </ul>
+            <hr>
+            <p>……（正文完整渲染原 Markdown，此处截图示意排版）……</p>
+        </article>
+
+        <div class="footer-bar">★ INTEL LIB ★ END OF REPORT ★</div>
+    </main>
+</div>
+
+<!-- 悬浮目录 -->
+<div class="toc-mini" id="toc">
+    <span class="on"></span><span></span><span></span><span></span>
+</div>
+<div class="toc-label">M.I.N.D ▲ TOC</div>
+
+<script>
+// 顶部阅读进度条
+const bar = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const p = h.scrollTop / (h.scrollHeight - h.clientHeight);
+    bar.style.width = (p * 100) + '%';
+});
+
+// 悬浮目录点击模拟
+const dots = document.querySelectorAll('#toc span');
+dots.forEach((d, i) => d.addEventListener('click', () => {
+    dots.forEach(x => x.classList.remove('on'));
+    d.classList.add('on');
+}));
+</script>
+</body>
+</html>

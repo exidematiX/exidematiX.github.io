@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="ai">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新主题预览 — AI Chat 风（Claude / ChatGPT / DeepSeek 参考感）</title>
+<style>
+/* 参考：Claude 暖米底+赤陶橙 / ChatGPT 灰绿折中 / DeepSeek 低饱和蓝
+   保留原有碰撞骨架（标题条、卡片跳转），但整体做成"对话产品 UI"的安静质感 */
+:root { --bg:#faf9f5; --panel:#ffffff; --ink:#2b2b2b; --ink2:#6b6b6b; --line:#e8e4dc;
+        --accent:#d97757; --accent-soft:#f5e6de; --gold:#c9a227; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+    font-family:'Segoe UI','Microsoft YaHei',sans-serif;
+    background:var(--bg); color:var(--ink); min-height:100vh; padding:26px 20px 60px;
+}
+.container { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:290px 1fr; gap:26px; }
+
+/* ===== 侧栏：像 chat 产品的窄导航 ===== */
+.sidebar { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:20px 16px; height:max-content; position:sticky; top:26px; }
+.side-brand { display:flex; align-items:center; gap:10px; padding:4px 6px 16px; border-bottom:1px solid var(--line); margin-bottom:14px; }
+.side-brand .logo { width:34px; height:34px; border-radius:9px; background:var(--accent); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-size:17px; }
+.side-brand .b-name { font-size:15px; font-weight:700; }
+.side-brand .b-sub { font-size:11px; color:var(--ink2); }
+.sec-label { font-size:11px; font-weight:700; color:var(--ink2); letter-spacing:2px; margin:14px 6px 8px; }
+.nav-item {
+    display:flex; align-items:center; gap:9px; padding:9px 11px; border-radius:9px;
+    font-size:13.5px; color:var(--ink); cursor:pointer; transition:.15s; margin-bottom:2px;
+}
+.nav-item:hover { background:var(--accent-soft); }
+.nav-item.on { background:var(--accent-soft); color:var(--accent); font-weight:600; }
+.nav-item .n-ico { font-size:15px; }
+.nav-item .n-badge { margin-left:auto; font-size:10px; background:var(--accent); color:#fff; padding:1px 7px; border-radius:99px; }
+
+/* ===== 顶部状态条（product-like）===== */
+.topbar { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+.model-pill {
+    display:flex; align-items:center; gap:8px; background:var(--panel); border:1px solid var(--line);
+    border-radius:99px; padding:6px 14px; font-size:12.5px; color:var(--ink2);
+}
+.model-pill .dot { width:7px; height:7px; border-radius:50%; background:#3b82f6; }
+.model-pill b { color:var(--ink); font-weight:600; }
+.mode-pill { margin-left:auto; display:flex; gap:8px; }
+.mode-pill span { background:var(--panel); border:1px solid var(--line); color:var(--ink2);
+    border-radius:99px; padding:6px 13px; font-size:12px; cursor:pointer; transition:.15s; }
+.mode-pill span:hover { color:var(--ink); border-color:#d0d0d0; }
+.mode-pill span.on { background:var(--ink); color:#fff; border-color:var(--ink); }
+
+/* ===== Hero：像 Claude 的开场白 ===== */
+.hero { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:26px 28px; margin-bottom:20px; }
+.hero h1 { font-size:26px; font-weight:700; letter-spacing:-.5px; }
+.hero h1 em { font-style:normal; color:var(--accent); }
+.hero p { margin-top:8px; font-size:14px; color:var(--ink2); line-height:1.7; }
+.chat-hint { display:flex; gap:8px; margin-top:16px; flex-wrap:wrap; }
+.chip { background:var(--bg); border:1px solid var(--line); border-radius:99px; padding:6px 14px;
+    font-size:12.5px; color:var(--ink2); cursor:pointer; transition:.15s; }
+.chip:hover { border-color:var(--accent); color:var(--accent); }
+
+/* ===== 双栏功能卡 ===== */
+.cards2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:20px; }
+.aicard {
+    background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:20px;
+    cursor:pointer; transition:.18s; display:flex; flex-direction:column; gap:6px;
+}
+.aicard:hover { border-color:var(--accent); box-shadow:0 4px 18px rgba(217,119,87,.1); transform:translateY(-2px); }
+.aicard .a-ico { width:36px; height:36px; border-radius:9px; background:var(--accent-soft);
+    display:flex; align-items:center; justify-content:center; font-size:17px; margin-bottom:2px; }
+.aicard .a-name { font-size:15px; font-weight:700; }
+.aicard .a-desc { font-size:12.5px; color:var(--ink2); line-height:1.55; }
+.aicard .a-foot { margin-top:auto; padding-top:8px; font-size:12px; color:var(--accent); font-weight:600; }
+
+/* ===== 最近文章列表（chat 气泡感）===== */
+.panel { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:20px; margin-bottom:20px; }
+.panel-title { font-size:13px; font-weight:700; color:var(--ink2); letter-spacing:2px; margin-bottom:14px; }
+.msg { display:flex; gap:12px; padding:11px 12px; border-radius:10px; cursor:pointer; transition:.15s; }
+.msg:hover { background:var(--bg); }
+.msg .m-ava { width:30px; height:30px; border-radius:8px; background:var(--ink); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
+.msg .m-body { flex:1; min-width:0; }
+.msg .m-title { font-size:13.5px; font-weight:600; }
+.msg .m-meta { font-size:11.5px; color:var(--ink2); margin-top:3px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.mtag { background:var(--accent-soft); color:var(--accent); font-size:10.5px; font-weight:600; padding:1px 8px; border-radius:99px; }
+
+/* ===== 技能面板 ===== */
+.srow { display:flex; align-items:center; gap:12px; padding:8px 0; }
+.srow .s-name { width:76px; font-size:13px; font-weight:600; }
+.sbar { flex:1; height:8px; background:var(--bg); border-radius:99px; overflow:hidden; }
+.sbar div { height:100%; background:var(--accent); border-radius:99px; width:0%; transition:width 1s cubic-bezier(.2,.9,.3,1); }
+.srow .s-val { width:40px; text-align:right; font-size:12px; color:var(--ink2); font-variant-numeric:tabular-nums; }
+
+/* 输入框装饰（底部假 chat-input，纯展示） */
+.ghost-input {
+    background:var(--panel); border:1px solid var(--line); border-radius:14px;
+    padding:14px 16px; display:flex; align-items:center; gap:10px; color:var(--ink2); font-size:13.5px;
+}
+.ghost-input .caret { width:2px; height:16px; background:var(--accent); animation:blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity:0; } }
+.ghost-input .send { margin-left:auto; background:var(--accent); color:#fff; font-size:12px;
+    padding:5px 14px; border-radius:8px; }
+
+@media (max-width:860px) {
+    .container { grid-template-columns:1fr; }
+    .sidebar { position:static; }
+    .cards2 { grid-template-columns:1fr; }
+}
+/* 双栏拼到合适高度 */
+.grid-main > * + * { margin-top:0; }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:start; }
+</style>
+</head>
+<body>
+<div class="container">
+    <!-- 侧栏 -->
+    <aside class="sidebar">
+        <div class="side-brand">
+            <div class="logo">ℒ</div>
+            <div><div class="b-name">LeonKennedy</div><div class="b-sub">Full Stack · 5yrs</div></div>
+        </div>
+        <div class="sec-label">WORKSPACE</div>
+        <div class="nav-item on"><span class="n-ico">🏠</span> 概览</div>
+        <div class="nav-item"><span class="n-ico">📖</span> 博客 <span class="n-badge">2</span></div>
+        <div class="nav-item"><span class="n-ico">🖼️</span> 相册</div>
+        <div class="nav-item"><span class="n-ico">☁️</span> 云盘</div>
+        <div class="sec-label">SHELF</div>
+        <div class="nav-item"><span class="n-ico">⌨️</span> 实验室</div>
+    </aside>
+
+    <main>
+        <!-- 顶部状态 -->
+        <div class="topbar">
+            <div class="model-pill"><span class="dot"></span> · 概览</div>
+            <div class="mode-pill"><span class="on">Light</span><span>Dark</span></div>
+        </div>
+
+        <!-- Hero -->
+        <section class="hero">
+            <h1>早上好，这里是 <em>ℒℯℴ𝓃</em> 的工作台。</h1>
+            <p>The only way to do great is to love what you do. 今天也要继续把自己推向前一格。</p>
+            <div class="chat-hint">
+                <span class="chip">✍ 新文章</span>
+                <span class="chip">🗂 最近归档</span>
+                <span class="chip">🎮 地下城探险</span>
+            </div>
+        </section>
+
+        <!-- 功能双卡 -->
+        <div class="cards2">
+            <div class="aicard">
+                <div class="a-ico">📖</div>
+                <div class="a-name">博客</div>
+                <div class="a-desc">记录摆烂日常。最新一篇：面经（14 分钟）。</div>
+                <div class="a-foot">进入 →</div>
+            </div>
+            <div class="aicard">
+                <div class="a-ico">🖼️</div>
+                <div class="a-name">相册 · 实验室</div>
+                <div class="a-desc">收集存储的图片与有趣 html 作品。</div>
+                <div class="a-foot">进入 →</div>
+            </div>
+        </div>
+
+        <!-- 最近文章 + 技能 双栏 -->
+        <div class="two-col">
+            <section class="panel">
+                <div class="panel-title">RECENT · 最近写作</div>
+                <div class="msg">
+                    <div class="m-ava">🧠</div>
+                    <div class="m-body">
+                        <div class="m-title">面经</div>
+                        <div class="m-meta">2026-06-24 · 14 min <span class="mtag">C++</span><span class="mtag">C#</span></div>
+                    </div>
+                </div>
+                <div class="msg">
+                    <div class="m-ava">🎮</div>
+                    <div class="m-body">
+                        <div class="m-title">地下城探险</div>
+                        <div class="m-meta">2026-06-04 · 13 min <span class="mtag">UDP</span><span class="mtag">帧同步</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-title">STATS · 技能进度</div>
+                <div class="srow"><span class="s-name">JS/TS</span><div class="sbar"><div data-w="90"></div></div><span class="s-val">90</span></div>
+                <div class="srow"><span class="s-name">Vue</span><div class="sbar"><div data-w="85"></div></div><span class="s-val">85</span></div>
+                <div class="srow"><span class="s-name">C++/C#</span><div class="sbar"><div data-w="82"></div></div><span class="s-val">82</span></div>
+                <div class="srow"><span class="s-name">CSS/动</span><div class="sbar"><div data-w="80"></div></div><span class="s-val">80</span></div>
+                <div class="srow"><span class="s-name">Node</span><div class="sbar"><div data-w="78"></div></div><span class="s-val">78</span></div>
+            </section>
+        </div>
+
+        <!-- 底部幽灵输入框 -->
+        <div class="ghost-input">
+            <span>来点什么？例如「写一篇博客」「整理面经」…</span>
+            <span class="caret"></span>
+            <span class="send">⏎</span>
+        </div>
+    </main>
+</div>
+
+<script>
+// 技能条动画
+setTimeout(() => {
+    document.querySelectorAll('.sbar div').forEach(b => b.style.width = b.dataset.w + '%');
+}, 400);
+</script>
+</body>
+</html>

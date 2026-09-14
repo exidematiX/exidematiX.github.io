@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="red">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P5R 效果图 v3</title>
+<style>
+:root {
+    --red:#e60012; --black:#0a0a0a; --gold:#ffd700;
+}
+/* ======== 主题方案 ======== */
+:root, [data-theme="red"]   { --accent:#e60012; --accent-bg:#fff; }
+[data-theme="blue"]         { --accent:#1e4fe0; --accent-bg:#8fd0ff; }
+[data-theme="gold"]         { --accent:#ffae00; --accent-bg:#fff; }
+[data-theme="white"]        { --accent:#f2f2f2; --accent-bg:#e60012; }
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+    font-family:'Impact','Arial Black','Microsoft YaHei',sans-serif;
+    background:#0a0a0a; color:#fff; min-height:100vh;
+    overflow-x:hidden; cursor:crosshair;
+    transition:background .5s;
+}
+[data-theme="white"] body { background:#171717; }
+
+/* 噪点 */
+body::before {
+    content:""; position:fixed; inset:0; z-index:50; pointer-events:none;
+    opacity:.053; mix-blend-mode:overlay;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+/* 半调网点 */
+body::after {
+    content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:radial-gradient(circle, var(--accent) 1.4px, transparent 1.4px);
+    background-size:16px 16px; opacity:.2;
+    color-mix-drop:0;
+}
+
+/* ===== 主题选择下拉框 ===== */
+.theme-switch {
+    position:fixed; top:92px; right:20px; z-index:20;
+    display:flex; align-items:center; gap:8px;
+    font-family:'Microsoft YaHei'; font-size:13px; font-weight:bold;
+    transform:skewX(-10deg); transition:.3s;
+}
+.theme-switch select {
+    appearance:none; background:#fff; color:#000;
+    border:3px solid var(--accent); padding:6px 30px 6px 10px;
+    font-family:inherit; font-size:13px; font-weight:bold; cursor:pointer;
+    box-shadow:4px 4px 0 var(--accent); outline:none;
+    clip-path:polygon(0 0,100% 0,96% 100%,0 100%);
+}
+.theme-switch select:hover { box-shadow:5px 5px 0 var(--accent), 5px 5px 0 2px #000; }
+.theme-switch select:focus-visible { outline:2px dashed #000; outline-offset:3px; }
+.theme-switch .arrow {
+    position:absolute; right:10px; pointer-events:none;
+    width:0; height:0; border:6px solid transparent; border-top-color:var(--accent); top:13px;
+}
+.theme-switch label { color:#ff9; text-shadow:1px 1px 3px #000; }
+[data-theme="white"] .theme-switch label { color:#fff; }
+
+/* 四角取景框 */
+.corner { position:fixed; width:56px; height:56px; border:3px solid var(--accent); z-index:9; opacity:.85; transition:border-color .3s; }
+[data-theme="white"] .corner { border-color:#fff; }
+.corner.tl { top:16px; left:16px; border-right:none; border-bottom:none; }
+.corner.tr { top:16px; right:16px; border-left:none; border-bottom:none; }
+.corner.bl { bottom:16px; left:16px; border-right:none; border-top:none; }
+.corner.br { bottom:16px; right:16px; border-left:none; border-top:none; }
+
+/* 斜向跑马灯 */
+.ticker {
+    position:fixed; left:-6%; top:36px; width:112%; padding:8px 0;
+    background:var(--accent); transform:skewY(-2deg) rotate(-1.2deg);
+    z-index:8; overflow:hidden; border:3px solid #fff; box-shadow:0 6px 24px rgba(0,0,0,.7);
+    transition:background .3s;
+}
+[data-theme="white"] .ticker { background:#fff; }
+[data-theme="white"] .ticker-inner { color:#000; }
+[data-theme="white"] .ticker span { text-shadow:none; }
+.ticker-inner {
+    display:flex; width:max-content;
+    animation:scroll 18s linear infinite;
+    font-size:15px; font-weight:bold; font-style:italic; letter-spacing:2px; color:#fff;
+    text-shadow:1px 1px 0 #000; white-space:nowrap;
+}
+.ticker span { padding:0 26px; }
+@keyframes scroll { to { transform:translateX(-50%); } }
+
+/* ---------- 布局 ---------- */
+.container { max-width:1400px; margin:0 auto; padding:110px 26px 40px; display:grid; grid-template-columns:300px 1fr; gap:40px; position:relative; z-index:1; }
+
+/* 砸入场 */
+.drop { opacity:0; animation:drop .55s cubic-bezier(.2,1.6,.35,1) forwards; }
+@keyframes drop {
+    0% { opacity:0; transform:translateY(-70px) rotate(var(--r,0deg)) scale(1.4); }
+    100% { opacity:1; transform:none; }
+}
+body.staggered .drop { animation-delay:var(--d,0s); }
+
+/* ---------- Hero ---------- */
+.hero { position:relative; margin-bottom:26px; }
+.hero-title { font-size:110px; line-height:.92; font-style:italic; letter-spacing:-3px; position:relative; }
+.hero-title .echo {
+    position:absolute; left:8px; top:8px; color:transparent;
+    -webkit-text-stroke:2.5px var(--accent); z-index:-1; opacity:.9; filter:blur(.4px);
+    transition:-webkit-text-stroke .3s;
+}
+.hero-title .main { position:relative; color:#fff; text-shadow:6px 6px 0 var(--accent), 12px 12px 0 #000; transition:text-shadow .3s; }
+
+.hero-row { display:flex; align-items:center; gap:14px; margin-top:16px; flex-wrap:wrap; }
+.hero-sub {
+    background:#fff; color:#000; font-weight:bold; font-style:italic; font-size:19px;
+    padding:5px 20px 5px 14px; transform:skewX(-13deg) rotate(-1deg);
+    box-shadow:6px 6px 0 var(--accent); clip-path:polygon(2% 0,100% 0,97% 100%,0% 100%);
+    transition:box-shadow .3s;
+}
+.hero-en { font-size:13px; color:var(--accent); font-style:italic; letter-spacing:3px; }
+
+/* ---------- 侧栏 ---------- */
+.sidebar { position:sticky; top:100px; align-self:start; }
+.menu-label {
+    position:relative; display:inline-block; background:#fff; color:#000;
+    padding:5px 30px 5px 20px; font-size:16px; font-style:italic; font-weight:bold;
+    transform:skewX(-12deg); margin:0 0 16px;
+    clip-path:polygon(0 0,100% 0,88% 100%,0 100%); box-shadow:5px 5px 0 var(--accent);
+    transition:box-shadow .3s;
+}
+.menu-label::after { content:""; position:absolute; right:-8px; top:5px; width:0; height:0; border:9px solid transparent; border-left:12px solid #fff; }
+
+.profile {
+    background:#111; border:3px solid #fff; padding:22px 18px;
+    clip-path:polygon(0 4%, 6% 0, 97% 2%, 100% 93%, 94% 100%, 3% 98%);
+    box-shadow:12px 12px 0 var(--accent); margin-bottom:30px; position:relative;
+    transform:rotate(-2deg); transition:box-shadow .3s;
+}
+.profile::before {
+    content:"!"; position:absolute; top:-13px; right:-13px; width:34px; height:34px;
+    background:var(--accent); border:3px solid #fff; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:20px; font-style:italic;
+    animation:pulse 2.2s ease-in-out infinite; transition:background .3s;
+}
+@keyframes pulse { 50% { transform:scale(1.25) rotate(9deg); } }
+.avatar {
+    width:104px; height:104px; border-radius:50%; background:var(--accent);
+    margin:0 auto 12px; display:flex; align-items:center; justify-content:center;
+    font-size:50px; border:4px solid #fff; transform:rotate(4deg);
+    box-shadow:0 0 0 3px #000, 0 0 26px color-mix(in srgb, var(--accent) 70%, transparent);
+    transition:background .3s, box-shadow .3s;
+}
+.name { text-align:center; font-size:28px; font-style:italic; transform:skew(-6deg); }
+.sub { text-align:center; font-size:12.5px; color:color-mix(in srgb, var(--accent) 65%, #fff); margin-top:6px; font-family:'Microsoft YaHei'; }
+
+.menu-item {
+    position:relative; background:rgba(0,0,0,.6); border-left:6px solid #fff;
+    padding:11px 16px; margin-bottom:9px; font-size:14.5px; font-style:italic;
+    font-family:'Microsoft YaHei'; transform:skew(-9deg); cursor:pointer;
+    transition:.18s; overflow:hidden; color:#eee;
+}
+.menu-item .jp {
+    position:absolute; right:10px; top:50%; transform:translateY(-50%);
+    font-size:11px; color:var(--accent); font-style:normal; opacity:.85; letter-spacing:1px;
+    transition:color .3s;
+}
+.menu-item:hover {
+    background:#fff; color:#000; border-left-color:var(--accent);
+    transform:skew(-9deg) translateX(8px);
+    animation:jitter .25s steps(2) 2;
+}
+.menu-item:hover .jp { color:#000; }
+@keyframes jitter { 25% { transform:skew(-9deg) translateX(8px) translateY(-1.5px); } 75% { transform:skew(-9deg) translateX(8px) translateY(1.5px); } }
+
+/* ---------- 区块标题 ---------- */
+.section-title { display:flex; align-items:center; gap:16px; margin:50px 0 24px; }
+.section-title .num {
+    font-size:46px; font-style:italic; color:transparent; -webkit-text-stroke:2px var(--accent);
+    transform:rotate(-4deg); font-family:Impact; transition:-webkit-text-stroke .3s;
+}
+.section-title .txt {
+    background:#fff; color:#000; font-size:25px; font-weight:bold; font-style:italic;
+    padding:6px 26px 6px 18px; transform:skewX(-16deg) rotate(-1deg);
+    box-shadow:6px 6px 0 var(--accent); clip-path:polygon(0 0,100% 0,93% 100%,0 100%);
+    transition:box-shadow .3s;
+}
+.section-title .line { flex:1; height:5px; background:repeating-linear-gradient(-35deg,var(--accent) 0 14px,transparent 14px 22px); }
+
+/* ---------- 卡片 ---------- */
+.projects { display:grid; grid-template-columns:repeat(auto-fit,minmax(225px,1fr)); gap:24px; }
+.card {
+    background:#101010; border:3px solid #fff; padding:24px 20px 20px; position:relative;
+    cursor:pointer; font-family:'Microsoft YaHei'; transition:.22s; overflow:hidden;
+    clip-path:polygon(3% 0, 100% 1%, 98% 99%, 0 100%);
+    box-shadow:8px 8px 0 var(--accent), 8px 8px 0 3px #000;
+}
+.card:nth-child(4n+1){ transform:rotate(-2deg); --r:-6deg; }
+.card:nth-child(4n+2){ transform:rotate(1.2deg) translateY(10px); --r:5deg; }
+.card:nth-child(4n+3){ transform:rotate(-1deg); --r:-4deg; }
+.card:nth-child(4n+4){ transform:rotate(1.8deg) translateY(6px); --r:6deg; }
+.card::before { content:""; position:absolute; inset:0 0 auto 0; height:5px; background:var(--accent); transition:background .3s; }
+.card::after {
+    content:attr(data-no); position:absolute; right:8px; bottom:-6px;
+    font-size:64px; font-style:italic; color:transparent;
+    -webkit-text-stroke:1.5px color-mix(in srgb, var(--accent) 40%, transparent); pointer-events:none;
+    transition:-webkit-text-stroke .3s;
+}
+.card:hover { transform:rotate(0) translateY(-8px) scale(1.06); box-shadow:14px 14px 0 var(--accent), 14px 14px 0 3px #000; z-index:3; animation:jitter2 .2s steps(2) 3; }
+@keyframes jitter2 { 50% { transform:rotate(0) translateY(-8px) scale(1.06) translateX(-2px); } }
+.card:hover { transition:box-shadow .22s, transform .22s; }
+.card-icon { font-size:38px; margin-bottom:10px; }
+.card-title { font-size:20px; font-weight:bold; font-style:italic; margin-bottom:6px; position:relative; display:inline-block; }
+.card:hover .card-title { text-shadow:-2px -1.5px 0 color-mix(in srgb, var(--accent) 80%, transparent); }
+.card-desc { font-size:12.5px; color:#a8a8a8; line-height:1.55; }
+
+/* ---------- 技能 ---------- */
+.skills { display:flex; flex-wrap:wrap; gap:14px; }
+.skill {
+    background:#fff; color:#000; min-width:76px; padding:11px 13px; text-align:center;
+    font-size:15px; font-weight:bold; font-style:italic; transform:skew(-10deg);
+    box-shadow:4px 4px 0 var(--accent), 4px 4px 0 2px #000; transition:.2s; cursor:pointer;
+    clip-path:polygon(2% 0,100% 0,97% 100%,0 100%);
+}
+.skill:nth-child(odd) { rotate:-2deg; }
+.skill:nth-child(even) { rotate:2deg; }
+.skill:hover {
+    background:var(--accent); color:#fff; transform:skew(-10deg) scale(1.2);
+    box-shadow:6px 6px 0 #fff, 6px 6px 0 2px #000; rotate:0deg;
+}
+[data-theme="white"] .skill:hover { color:#000; text-shadow:1px 1px 0 #fff; }
+
+/* ---------- 底部 ---------- */
+.slogan { margin:70px 0 30px; text-align:center; position:relative; }
+.slogan .big {
+    display:inline-block; font-size:64px; font-style:italic; letter-spacing:3px;
+    color:#fff; text-shadow:4px 4px 0 var(--accent), 8px 8px 0 #000;
+    transform:skew(-8deg) rotate(-2deg); transition:text-shadow .3s;
+}
+.slogan .big b { color:transparent; -webkit-text-stroke:2.5px #fff; text-shadow:none; }
+.slogan .small { display:block; margin-top:12px; font-size:12.5px; color:#666; font-family:'Microsoft YaHei'; letter-spacing:8px; }
+
+/* 点击闪屏 */
+.flash {
+    position:fixed; inset:0; background:#000; z-index:100; pointer-events:none;
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; font-size:52px; font-style:italic; color:#fff; text-shadow:4px 4px 0 var(--accent);
+}
+.flash.go { animation:flashAnim .5s steps(3) forwards; }
+@keyframes flashAnim {
+    0% { opacity:1; clip-path:polygon(0 0,100% 0,100% 0,0 0); }
+    40% { opacity:1; clip-path:polygon(0 0,100% 0,100% 100%,0 100%); }
+    100% { opacity:0; clip-path:polygon(0 0,100% 0,100% 100%,0 100%); }
+}
+
+@media (max-width:900px) {
+    .container { grid-template-columns:1fr; padding-top:90px; }
+    .hero-title { font-size:64px; }
+    .sidebar { position:static; }
+    .theme-switch { top:88px; right:14px; font-size:12px; }
+    .theme-switch select { font-size:12px; }
+}
+</style>
+</head>
+<body>
+<div class="corner tl"></div><div class="corner tr"></div>
+<div class="corner bl"></div><div class="corner br"></div>
+
+<div class="ticker">
+    <div class="ticker-inner">
+        <span>★ CIVILIAN ALERT ★ TAKE YOUR HEART ★</span>
+        <span>🎴 心を盗め 🎴</span>
+        <span>★ WAKE UP ≥ MASTERMIND ★</span>
+        <span>赌け、あなたの人生</span>
+        <span>★ CIVILIAN ALERT ★ TAKE YOUR HEART ★</span>
+        <span>🎴 心を盗め 🎴</span>
+        <span>★ WAKE UP ≥ MASTERMIND ★</span>
+        <span>赌け、あなたの人生</span>
+    </div>
+</div>
+
+<!-- 主题切换下拉框 -->
+<div class="theme-switch">
+    <label for="themeSelect">Δ THEME</label>
+    <select id="themeSelect">
+        <option value="red">红 — JOKER 🃏</option>
+        <option value="blue">蓝 — P3 结成</option>
+        <option value="gold">金 — 皇家 AWAKEN</option>
+        <option value="white">白 — 幻影白</option>
+    </select>
+    <span class="arrow"></span>
+</div>
+
+<div class="container">
+    <aside class="sidebar">
+        <div class="menu-label drop" style="--d:.05s">PROFILE</div>
+        <div class="profile drop" style="--d:.12s">
+            <div class="avatar">🎭</div>
+            <div class="name">ℒℯℴ𝓃</div>
+            <div class="sub">Full Stack Developer · 5yrs</div>
+        </div>
+        <div class="menu-label drop" style="--d:.2s">MIND LINK</div>
+        <div class="menu-item drop" style="--d:.25s">❤️ 博客 <span class="jp">かたまり</span></div>
+        <div class="menu-item drop" style="--d:.3s">☁️ 云盘 <span class="jp">ストック</span></div>
+        <div class="menu-item drop" style="--d:.35s">🎀 实验室 <span class="jp">じっけん</span></div>
+        <div class="menu-item drop" style="--d:.4s">🖼️ 相册 <span class="jp">アルバム</span></div>
+    </aside>
+
+    <main>
+        <div class="hero drop" style="--d:0s">
+            <div class="hero-title">
+                <span class="echo" aria-hidden="true">TAKE<br>YOUR<br>HEART</span>
+                <span class="main">TAKE<br>YOUR<br>HEART</span>
+            </div>
+            <div class="hero-row">
+                <span class="hero-sub">Hello, I'm ℒℯℴ𝓃</span>
+                <span class="hero-en">— WANNA BE A FULL STACK DEVELOPER</span>
+            </div>
+        </div>
+
+        <div class="section-title drop" style="--d:.45s">
+            <span class="num">01</span><span class="txt">SITE</span><span class="line"></span>
+        </div>
+        <div class="projects">
+            <div class="card drop" data-no="01" style="--d:.5s"><div class="card-icon">☁️</div><div class="card-title" data-t="博客">博客</div><div class="card-desc">记录摆烂日常</div></div>
+            <div class="card drop" data-no="02" style="--d:.56s"><div class="card-icon">👻</div><div class="card-title" data-t="云盘">云盘</div><div class="card-desc">存储收藏文件</div></div>
+            <div class="card drop" data-no="03" style="--d:.62s"><div class="card-icon">🎀</div><div class="card-title" data-t="实验室">实验室</div><div class="card-desc">收集有趣 html 作品</div></div>
+            <div class="card drop" data-no="04" style="--d:.68s"><div class="card-icon">🖼️</div><div class="card-title" data-t="相册">相册</div><div class="card-desc">收藏存储的图片</div></div>
+        </div>
+
+        <div class="section-title drop" style="--d:.74s">
+            <span class="num">02</span><span class="txt">SKILLS</span><span class="line"></span>
+        </div>
+        <div class="skills">
+            <span class="skill drop" style="--d:.8s">HTML</span>
+            <span class="skill drop" style="--d:.84s">CSS</span>
+            <span class="skill drop" style="--d:.88s">JS</span>
+            <span class="skill drop" style="--d:.92s">React</span>
+            <span class="skill drop" style="--d:.96s">Vue</span>
+            <span class="skill drop" style="--d:1s">Py</span>
+            <span class="skill drop" style="--d:1.04s">Node</span>
+            <span class="skill drop" style="--d:1.08s">SQL</span>
+            <span class="skill drop" style="--d:1.12s">Git</span>
+            <span class="skill drop" style="--d:1.16s">Docker</span>
+            <span class="skill drop" style="--d:1.2s">Rust</span>
+            <span class="skill drop" style="--d:1.24s">TS</span>
+        </div>
+
+        <div class="slogan drop" style="--d:1.34s">
+            <div class="big">WAKE <b>UP</b>, GET <b>UP</b></div>
+            <span class="small">A PERSONA TRANSFORMATION</span>
+        </div>
+    </main>
+</div>
+
+<div class="flash" id="flash">⚠ 心盗まり ⚠</div>
+
+<script>
+// 入场：交错"砸"进来
+document.querySelectorAll('.drop').forEach(el => el.classList.add('drop'));
+document.body.classList.add('staggered');
+
+// 点击闪屏转场
+const flash = document.getElementById('flash');
+const msgs = ['「 妈妈。」', '⚠ 心盗まり ⚠', '>>> HACKING >>>', '「 私が同じ。」'];
+document.querySelectorAll('.card, .menu-item').forEach(el => {
+    el.addEventListener('click', () => {
+        flash.textContent = msgs[Math.floor(Math.random()*msgs.length)];
+        flash.classList.remove('go'); void flash.offsetWidth;
+        flash.classList.add('go');
+    });
+});
+
+// ===== 主题切换 =====
+const select = document.getElementById('themeSelect');
+const saved = localStorage.getItem('p5r-theme');
+if (saved) {
+    document.documentElement.dataset.theme = saved;
+    select.value = saved;
+}
+select.addEventListener('change', e => {
+    document.documentElement.dataset.theme = e.target.value;
+    localStorage.setItem('p5r-theme', e.target.value);
+    // 闪屏反馈，确认切换
+    flash.textContent = '· THEME CHANGED ·';
+    flash.classList.remove('go'); void flash.offsetWidth;
+    flash.classList.add('go');
+});
+</script>
+</body>
+</html>

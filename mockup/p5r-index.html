@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P5R 风格主题效果预览</title>
+<style>
+/* ========== P5R 主题预览 ========== */
+:root {
+    --p5-red: #e60012;
+    --p5-dark-red: #a3000e;
+    --p5-black: #0d0d0d;
+    --p5-white: #ffffff;
+    --p5-gray: #1a1a1a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Impact', 'Arial Black', 'Microsoft YaHei', sans-serif;
+    background: var(--p5-black);
+    color: var(--p5-white);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* 半调网点背景 */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(230,0,18,0.25) 1.5px, transparent 1.5px);
+    background-size: 14px 14px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* 红色大斜切色块 */
+body::after {
+    content: "";
+    position: fixed;
+    top: -10%;
+    right: -15%;
+    width: 55vw;
+    height: 130vh;
+    background: linear-gradient(160deg, var(--p5-red) 0%, var(--p5-dark-red) 70%);
+    transform: skewX(-12deg);
+    clip-path: polygon(8% 0, 100% 0, 92% 100%, 0% 100%);
+    z-index: -1;
+    opacity: 0.92;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px 25px;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 35px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== 侧边栏 ===== */
+.sidebar {
+    position: sticky;
+    top: 30px;
+    align-self: start;
+}
+
+.profile {
+    background: var(--p5-black);
+    border: 4px solid var(--p5-white);
+    box-shadow: 10px 10px 0 var(--p5-red);
+    padding: 25px 20px;
+    transform: skew(-4deg) rotate(-2deg);
+    margin-bottom: 30px;
+}
+
+.avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: var(--p5-red);
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 52px;
+    border: 5px solid var(--p5-white);
+    transform: rotate(3deg);
+}
+
+.profile h2 {
+    font-size: 26px;
+    text-align: center;
+    font-style: italic;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 0 var(--p5-red);
+    transform: skew(-6deg);
+}
+
+.profile .sub {
+    text-align: center;
+    font-size: 13px;
+    margin-top: 8px;
+    color: #ffb3bb;
+    font-family: 'Microsoft YaHei', sans-serif;
+}
+
+.badge {
+    display: inline-block;
+    background: var(--p5-white);
+    color: var(--p5-black);
+    font-size: 11px;
+    font-weight: bold;
+    padding: 3px 10px;
+    margin-top: 10px;
+    transform: skew(-15deg) rotate(-2deg);
+}
+
+/* P5R 菜单风格 意识 meld */
+.menu-label {
+    background: var(--p5-white);
+    color: var(--p5-black);
+    display: inline-block;
+    padding: 4px 16px;
+    font-size: 15px;
+    font-style: italic;
+    font-weight: bold;
+    transform: skewX(-12deg);
+    margin-bottom: 15px;
+    box-shadow: 4px 4px 0 var(--p5-red);
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0,0,0,0.55);
+    border-left: 5px solid var(--p5-white);
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-style: italic;
+    letter-spacing: 0.5px;
+    transform: skew(-8deg);
+    transition: all 0.2s;
+    cursor: pointer;
+    font-family: 'Microsoft YaHei', sans-serif;
+    color: var(--p5-white);
+}
+
+.menu-item:hover {
+    background: var(--p5-white);
+    color: var(--p5-black);
+    border-left-color: var(--p5-red);
+    transform: skew(-8deg) translateX(6px);
+}
+
+.menu-icon { font-size: 18px; font-style: normal; }
+
+/* ===== 主内容 ===== */
+.main { position: relative; }
+
+.hero {
+    margin-bottom: 40px;
+    transform: skew(-4deg);
+}
+
+.hero-title {
+    font-size: 92px;
+    line-height: 0.95;
+    font-style: italic;
+    color: var(--p5-white);
+    -webkit-text-stroke: 3px var(--p5-black);
+    text-shadow: 5px 5px 0 var(--p5-red), 10px 10px 0 rgba(0,0,0,0.5);
+    letter-spacing: -2px;
+}
+
+.hero-sub {
+    display: inline-block;
+    background: var(--p5-white);
+    color: var(--p5-black);
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 6px 22px;
+    margin-top: 14px;
+    transform: skew(-12deg) rotate(-1deg);
+    box-shadow: 6px 6px 0 rgba(0,0,0,0.6);
+}
+
+.hero-tag {
+    display: block;
+    margin-top: 14px;
+    font-size: 15px;
+    color: #fff;
+    font-family: 'Microsoft YaHei', sans-serif;
+    text-shadow: 1px 1px 2px #000;
+}
+
+/* 卡片区域标题 */
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 45px 0 22px;
+}
+
+.section-title .txt {
+    background: var(--p5-white);
+    color: var(--p5-black);
+    font-size: 24px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 5px 20px;
+    transform: skewX(-14deg);
+    box-shadow: 5px 5px 0 var(--p5-red);
+}
+
+.section-title .num {
+    font-size: 38px;
+    font-style: italic;
+    color: #ff4d5c;
+    -webkit-text-stroke: 1.5px #000;
+    font-family: Impact, sans-serif;
+}
+
+/* ===== 项目卡片 ===== */
+.projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+}
+
+.card {
+    background: #111;
+    border: 3px solid var(--p5-white);
+    padding: 22px 20px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-family: 'Microsoft YaHei', sans-serif;
+    transform: skew(-3deg);
+    box-shadow: 6px 6px 0 var(--p5-red);
+    overflow: hidden;
+}
+
+.card:nth-child(odd)  { transform: skew(-3deg) rotate(-1.5deg); }
+.card:nth-child(even) { transform: skew(-3deg) rotate(1deg); }
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 4px;
+    background: var(--p5-red);
+}
+
+.card:hover {
+    transform: skew(-3deg) rotate(0deg) scale(1.05);
+    box-shadow: 10px 10px 0 var(--p5-red), 0 0 30px rgba(230,0,18,0.6);
+    z-index: 2;
+}
+
+.card-icon { font-size: 38px; margin-bottom: 10px; }
+.card-title { font-size: 20px; font-weight: bold; font-style: italic; letter-spacing: 1px; margin-bottom: 6px; }
+.card-desc { font-size: 12.5px; color: #b8b8b8; line-height: 1.5; }
+
+.card-cut { /* 右上角缺口 */
+    position: absolute;
+    top: 0; right: 0;
+    border-style: solid;
+    border-width: 0 34px 34px 0;
+    border-color: transparent var(--p5-black) transparent transparent;
+}
+
+/* ===== 技能 ===== */
+.skills { display: flex; flex-wrap: wrap; gap: 14px; }
+
+.skill {
+    background: var(--p5-white);
+    color: var(--p5-black);
+    min-width: 74px;
+    padding: 10px 14px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    font-style: italic;
+    transform: skew(-10deg);
+    box-shadow: 4px 4px 0 var(--p5-red);
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.skill:nth-child(3n)   { transform: skew(-10deg) rotate(2deg); }
+.skill:nth-child(3n+1) { transform: skew(-10deg) rotate(-2deg); }
+.skill:hover {
+    background: var(--p5-red);
+    color: var(--p5-white);
+    transform: skew(-10deg) scale(1.15);
+    box-shadow: 6px 6px 0 #fff;
+}
+
+/* ===== 底部标语 ===== */
+.slogan {
+    margin: 60px 0 20px;
+    text-align: center;
+}
+
+.slogan .big {
+    display: inline-block;
+    font-size: 52px;
+    font-style: italic;
+    letter-spacing: 4px;
+    color: var(--p5-white);
+    -webkit-text-stroke: 2px var(--p5-black);
+    text-shadow: 4px 4px 0 var(--p5-red);
+    transform: skew(-8deg) rotate(-2deg);
+}
+
+.slogan .small {
+    display: block;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #777;
+    font-family: 'Microsoft YaHei', sans-serif;
+    letter-spacing: 6px;
+}
+
+@media (max-width: 768px) {
+    .container { grid-template-columns: 1fr; }
+    .hero-title { font-size: 56px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <!-- 侧边栏 -->
+    <aside class="sidebar">
+        <div class="menu-label"> PROFILE </div>
+        <div class="profile">
+            <div class="avatar">🎭</div>
+            <h2>ℒℯℴ𝓃</h2>
+            <div class="sub">Full Stack Developer</div>
+            <div class="badge">5yrs EXP</div>
+        </div>
+
+        <div class="menu-label"> MIND LINK </div>
+        <div class="menu-item"><span class="menu-icon">❤️</span> 博客</div>
+        <div class="menu-item"><span class="menu-icon">☁️</span> 云盘</div>
+        <div class="menu-item"><span class="menu-icon">🎀</span> 实验室</div>
+        <div class="menu-item"><span class="menu-icon">🖼️</span> 相册</div>
+    </aside>
+
+    <!-- 主内容 -->
+    <main class="main">
+        <div class="hero">
+            <div class="hero-title">TAKE<br>YOUR<br>HEART</div>
+            <span class="hero-sub">Hello, I'm ℒℯℴ𝓃 — Wanna be a Full Stack Developer</span>
+            <span class="hero-tag">🎧 The only way to do great is to love what you do.</span>
+        </div>
+
+        <div class="section-title">
+            <span class="num">01</span>
+            <span class="txt">SITE</span>
+            <span style="flex:1; height:4px; background:var(--p5-red); transform:skewX(-30deg);"></span>
+        </div>
+
+        <div class="projects">
+            <div class="card">
+                <div class="card-icon">☁️</div>
+                <div class="card-title">博客</div>
+                <div class="card-desc">记录摆烂日常</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">👻</div>
+                <div class="card-title">云盘</div>
+                <div class="card-desc">存储收藏文件</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎀</div>
+                <div class="card-title">实验室</div>
+                <div class="card-desc">收集有趣 html 作品</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🖼️</div>
+                <div class="card-title">相册</div>
+                <div class="card-desc">收藏存储的图片</div>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <span class="num">02</span>
+            <span class="txt">SKILLS</span>
+            <span style="flex:1; height:4px; background:var(--p5-red); transform:skewX(-30deg);"></span>
+        </div>
+
+        <div class="skills">
+            <span class="skill">HTML</span>
+            <span class="skill">CSS</span>
+            <span class="skill">JS</span>
+            <span class="skill">React</span>
+            <span class="skill">Vue</span>
+            <span class="skill">Py</span>
+            <span class="skill">Node</span>
+            <span class="skill">SQL</span>
+            <span class="skill">Git</span>
+            <span class="skill">Docker</span>
+            <span class="skill">K8s</span>
+            <span class="skill">Rust</span>
+            <span class="skill">TS</span>
+        </div>
+
+        <div class="slogan">
+            <div class="big">★ WAKE UP ★</div>
+            <span class="small">GET UP · DRESS UP · BOOST UP</span>
+        </div>
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="noir">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P5R 新主题预览 — NOIR（低调暗钢）</title>
+<style>
+:root { --accent:#e60012; --gold:#ffd700; }
+[data-theme="blue"]  { --accent:#2a5cf0; }
+[data-theme="gold"]  { --accent:#ffae00; }
+[data-theme="white"] { --accent:#f2f2f2; }
+/* ===== 新增主题：NOIR 低调暗钢 ===== */
+[data-theme="noir"] { --accent:#64707e; --gold:#b8a86a; }
+[data-theme="noir"] body::after { opacity:.08; }   /* 半调网点更弱 */
+[data-theme="noir"] .ticker { background:linear-gradient(90deg,#3a424c,#5c6672); }
+[data-theme="noir"] .corner { opacity:.5; border-color:#8a929e; }
+[data-theme="noir"] .hero-title .main,
+[data-theme="noir"] .slogan .big { color:#e8eaee; text-shadow:5px 5px 0 #2e343b, 10px 10px 0 #000; }
+[data-theme="noir"] .hero-sub { background:#dbe0e6; }
+[data-theme="noir"] .hero-title .echo { -webkit-text-stroke-color:#39404a; }
+[data-theme="noir"] .theme-btn { border-color:#8a929e; }
+[data-theme="noir"] .menu-item .jp { color:#8a929e; }
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+    font-family:'Impact','Arial Black','Microsoft YaHei',sans-serif;
+    background:#0a0a0a; color:#fff; min-height:100vh; overflow-x:hidden;
+}
+/* 噪点 */
+body::before { content:""; position:fixed; inset:0; z-index:50; pointer-events:none; opacity:.05; mix-blend-mode:overlay;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+/* 半调网点 */
+body::after { content:""; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.18;
+    background-image:radial-gradient(circle, var(--accent) 1.4px, transparent 1.4px); background-size:16px 16px; }
+
+/* 四角取景框 */
+.corner { position:fixed; width:52px; height:52px; border:3px solid var(--accent); z-index:9; opacity:.85; }
+.corner.tl { top:14px; left:14px; border-right:0; border-bottom:0; }
+.corner.tr { top:14px; right:14px; border-left:0; border-bottom:0; }
+.corner.bl { bottom:14px; left:14px; border-right:0; border-top:0; }
+.corner.br { bottom:14px; right:14px; border-left:0; border-top:0; }
+
+/* 跑马灯 */
+.ticker { position:fixed; left:-6%; top:34px; width:112%; padding:7px 0; background:var(--accent);
+    transform:skewY(-2deg) rotate(-1.2deg); z-index:8; overflow:hidden; border:3px solid #fff;
+    box-shadow:0 6px 24px rgba(0,0,0,.7); }
+.ticker-inner { display:flex; width:max-content; animation:scroll 18s linear infinite;
+    font-size:14px; font-weight:bold; font-style:italic; letter-spacing:2px; color:#fff; text-shadow:1px 1px 0 #000; white-space:nowrap; }
+.ticker span { padding:0 24px; }
+@keyframes scroll { to { transform:translateX(-50%); } }
+
+/* 主题切换按钮 */
+.theme-switcher { position:fixed; right:16px; top:84px; z-index:20; display:flex; flex-direction:column; gap:6px; }
+.theme-btn { width:46px; height:30px; border:3px solid #fff; cursor:pointer; transform:skewX(-10deg);
+    box-shadow:3px 3px 0 #000; font-size:14px; font-weight:bold; transition:.2s; }
+.theme-btn:hover { transform:skewX(-10deg) scale(1.1); }
+
+.container { max-width:1400px; margin:0 auto; padding:100px 26px 50px; display:grid;
+    grid-template-columns:310px 1fr; gap:38px; position:relative; z-index:1; }
+
+/* 入场动效 */
+.drop { opacity:0; animation:drop .55s cubic-bezier(.2,1.6,.35,1) forwards; }
+@keyframes drop { 0% { opacity:0; transform:translateY(-70px) rotate(var(--r,0deg)) scale(1.4); }
+    100% { opacity:1; transform:none; } }
+body.staggered .drop { animation-delay:var(--d,0s); }
+
+/* ===== 侧栏 ===== */
+.sidebar { position:sticky; top:100px; align-self:start; }
+.menu-label { display:inline-block; background:#fff; color:#000; padding:5px 28px 5px 18px;
+    font-size:15px; font-style:italic; font-weight:bold; transform:skewX(-12deg); margin-bottom:15px;
+    box-shadow:5px 5px 0 var(--accent); clip-path:polygon(0 0,100% 0,88% 100%,0 100%); }
+.profile { background:#111; border:3px solid #fff; padding:22px 18px; margin-bottom:26px;
+    clip-path:polygon(0 4%,6% 0,97% 2%,100% 93%,94% 100%,3% 98%); transform:rotate(-2deg);
+    box-shadow:10px 10px 0 var(--accent); position:relative; }
+.profile .avatar { width:100px; height:100px; border-radius:50%; background:var(--accent);
+    margin:0 auto 12px; display:flex; align-items:center; justify-content:center; font-size:48px;
+    border:4px solid #fff; transform:rotate(4deg); box-shadow:0 0 0 3px #000, 0 0 26px color-mix(in srgb,var(--accent) 70%,transparent); }
+.profile .name { text-align:center; font-size:27px; font-style:italic; transform:skew(-6deg); }
+.profile .sub { text-align:center; font-size:12px; color:color-mix(in srgb,var(--accent) 65%,#fff); margin-top:5px; font-family:'Segoe UI','Microsoft YaHei'; }
+.badge { display:block; width:max-content; margin:10px auto 0; background:#fff; color:#000; font-size:11px;
+    font-weight:bold; padding:3px 14px; transform:skewX(-15deg) rotate(-2deg); font-family:'Segoe UI'; }
+
+/* TREASURE BOX：最近文章速览 */
+.treasure { background:rgba(0,0,0,.55); border-left:6px solid var(--accent); padding:13px 15px;
+    margin-bottom:9px; cursor:pointer; transform:skew(-7deg); transition:.2s; overflow:hidden; position:relative; }
+.treasure:nth-child(odd) { rotate:-1deg; }
+.treasure:hover { background:#fff; color:#000; transform:translateX(7px); }
+.treasure .t-date { font-size:10.5px; color:var(--accent); font-style:italic; letter-spacing:1.5px; font-family:'Segoe UI'; font-weight:bold; }
+.treasure .t-title { font-size:13.5px; font-weight:600; margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-family:'Microsoft YaHei'; }
+.treasure:hover .t-date { color:#000; }
+
+/* ===== Hero ===== */
+.hero { position:relative; margin-bottom:30px; }
+.hero-title { font-size:96px; line-height:.92; font-style:italic; letter-spacing:-3px; position:relative; }
+.hero-title .echo { position:absolute; left:8px; top:8px; color:transparent; -webkit-text-stroke:2.5px var(--accent); z-index:-1; opacity:.9; }
+.hero-title .main { position:relative; color:#fff; text-shadow:5px 5px 0 var(--accent), 10px 10px 0 #000; }
+.hero-row { display:flex; align-items:center; gap:14px; margin-top:16px; flex-wrap:wrap; }
+.hero-sub { background:#fff; color:#000; font-size:18px; font-weight:bold; font-style:italic;
+    padding:5px 20px 5px 13px; transform:skewX(-13deg) rotate(-1deg);
+    box-shadow:6px 6px 0 var(--accent); clip-path:polygon(2% 0,100% 0,97% 100%,0% 100%); }
+.hero-typer { font-size:14px; color:#ff8f98; font-style:italic; letter-spacing:2px; font-family:'Segoe UI'; }
+.hero-typer::after { content:"▍"; animation:blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity:0; } }
+
+/* ===== 区块标题 ===== */
+.section-title { display:flex; align-items:center; gap:14px; margin:46px 0 22px; }
+.section-title .num { font-size:44px; font-style:italic; color:transparent; -webkit-text-stroke:2px var(--accent); transform:rotate(-4deg); font-family:Impact; }
+.section-title .txt { background:#fff; color:#000; font-size:23px; font-weight:bold; font-style:italic;
+    padding:6px 24px 6px 17px; transform:skewX(-16deg) rotate(-1deg);
+    box-shadow:6px 6px 0 var(--accent); clip-path:polygon(0 0,100% 0,93% 100%,0 100%); }
+.section-title .line { flex:1; height:5px; background:repeating-linear-gradient(-35deg,var(--accent) 0 14px,transparent 14px 22px); }
+
+/* ===== 项目不等宽拼图 ===== */
+.mosaic { display:grid; grid-template-columns:repeat(3,1fr); grid-auto-rows:130px; gap:20px; }
+.mo-card {
+    background:#101010; border:3px solid #fff; position:relative; cursor:pointer;
+    clip-path:polygon(2% 0,100% 1%,98% 99%,0 100%);
+    box-shadow:7px 7px 0 var(--accent), 7px 7px 0 3px #000;
+    transition:.22s; overflow:hidden; font-family:'Microsoft YaHei'; display:flex; flex-direction:column;
+    justify-content:center; padding:18px 22px;
+}
+.mo-card.big  { grid-column:span 2; grid-row:span 2; }
+.mo-card.tall { grid-row:span 2; }
+.mo-card.locked { cursor:not-allowed; opacity:.55; filter:grayscale(.7); }
+.mo-card:hover:not(.locked) { transform:translateY(-7px) scale(1.03); box-shadow:12px 12px 0 var(--accent), 12px 12px 0 3px #000; z-index:3; }
+.mo-card::after { content:attr(data-no); position:absolute; right:10px; bottom:-10px; font-size:54px;
+    font-style:italic; color:transparent; -webkit-text-stroke:1.5px color-mix(in srgb,var(--accent) 38%,transparent); pointer-events:none; }
+.mo-icon { font-size:36px; margin-bottom:8px; }
+.mo-card.big .mo-icon { font-size:52px; }
+.mo-title { font-size:19px; font-weight:800; font-style:italic; letter-spacing:1px; }
+.mo-desc { font-size:12px; color:#a8a8a8; margin-top:5px; line-height:1.55; }
+.mo-corner { position:absolute; top:0; right:0; background:var(--accent); color:#fff; font-size:10px;
+    padding:3px 12px; font-style:italic; font-family:'Segoe UI'; font-weight:bold; letter-spacing:1px; border-left:2px solid #fff; border-bottom:2px solid #fff; }
+.mo-lock { font-size:24px; margin-bottom:6px; }
+.mo-card.locked .mo-title { color:#666; }
+.mo-card.locked .mo-desc { color:#555; }
+.mo-card.locked::before { content:empty; }
+
+/* ===== 技能 STATS 面板 ===== */
+.stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:22px; }
+.stat-group { background:rgba(0,0,0,.55); border:3px solid #fff; padding:20px 22px;
+    clip-path:polygon(0 3%,4% 0,97% 2%,100% 95%,93% 100%,2% 98%);
+    box-shadow:8px 8px 0 var(--accent), 8px 8px 0 3px #000; position:relative; }
+.stat-group:nth-child(odd) { rotate:-1deg; }
+.stat-group:nth-child(even) { rotate:1deg; }
+.stat-group .g-head { display:flex; align-items:center; gap:10px; margin-bottom:16px; font-family:'Impact','Arial Black'; }
+.stat-group .g-ico { font-size:22px; }
+.stat-group .g-name { font-size:20px; font-style:italic; letter-spacing:2px; }
+.stat-group .g-side { margin-left:auto; font-size:10px; color:var(--accent); font-style:italic; letter-spacing:3px; font-family:'Segoe UI'; }
+.stat-row { display:flex; align-items:center; gap:12px; margin-bottom:11px; font-family:'Segoe UI','Microsoft YaHei'; }
+.stat-row .s-name { width:70px; font-size:13.5px; font-weight:bold; font-style:italic; flex-shrink:0; }
+.bar { flex:1; height:12px; background:rgba(255,255,255,.09); position:relative; transform:skewX(-20deg); overflow:hidden; border:1px solid rgba(255,255,255,.18); }
+.bar-fill { height:100%; background:var(--accent); width:0%; transition:width 1s cubic-bezier(.2,.9,.3,1); box-shadow:0 0 8px var(--accent); }
+.bar-fill::after { content:""; position:absolute; inset:0; background:repeating-linear-gradient(-45deg,rgba(255,255,255,.24) 0 5px,transparent 5px 10px); }
+.rank { width:34px; text-align:center; font-size:14px; font-weight:bold; font-style:italic; flex-shrink:0; }
+.rank.s { color:var(--gold); text-shadow:0 0 9px var(--gold); }
+.rank.a  { color:#fff; }
+.rank.b  { color:#9aa; }
+
+/* 底部 */
+.slogan { margin:60px 0 24px; text-align:center; }
+.slogan .big { display:inline-block; font-size:56px; font-style:italic; letter-spacing:3px; color:#fff;
+    text-shadow:4px 4px 0 var(--accent), 8px 8px 0 #000; transform:skew(-8deg) rotate(-2deg); }
+.slogan .big b { color:transparent; -webkit-text-stroke:2.5px #fff; text-shadow:none; }
+.slogan .small { display:block; margin-top:10px; font-size:12px; color:#555; font-family:'Segoe UI','Microsoft YaHei'; letter-spacing:7px; }
+
+@media (max-width:900px) {
+    .container { grid-template-columns:1fr; padding-top:88px; }
+    .hero-title { font-size:58px; }
+    .mosaic { grid-template-columns:1fr 1fr; }
+    .sidebar { position:static; }
+}
+</style>
+</head>
+<body>
+<div class="corner tl"></div><div class="corner tr"></div>
+<div class="corner bl"></div><div class="corner br"></div>
+
+<div class="ticker"><div class="ticker-inner">
+    <span>★ WAKE UP ★ GET UP ★ BOOST UP ★</span><span>🎴 心を盗め 🎴</span>
+    <span>★ FULL>STACK MASTERMIND ★</span><span>第 n 章 · RELOAD</span>
+    <span>★ WAKE UP ★ GET UP ★ BOOST UP ★</span><span>🎴 心を盗め 🎴</span>
+    <span>★ FULL>STACK MASTERMIND ★</span><span>第 n 章 · RELOAD</span>
+</div></div>
+
+<div class="theme-switcher">
+    <button class="theme-btn" style="background:#64707e" onclick="setTheme('noir')"></button>
+    <button class="theme-btn" style="background:#e60012" onclick="setTheme('red')"></button>
+    <button class="theme-btn" style="background:#2a5cf0" onclick="setTheme('blue')"></button>
+    <button class="theme-btn" style="background:#ffae00" onclick="setTheme('gold')"></button>
+    <button class="theme-btn" style="background:#f2f2f2" onclick="setTheme('white')"></button>
+</div>
+
+<div class="container">
+    <!-- 侧栏 -->
+    <aside class="sidebar">
+        <div class="menu-label drop" style="--d:.05s">PROFILE</div>
+        <div class="profile drop" style="--d:.12s">
+            <div class="avatar">🎭</div>
+            <div class="name">ℒℯℴ𝓃</div>
+            <div class="sub">Full Stack Developer</div>
+            <div class="badge">LV.5 CODER</div>
+        </div>
+
+        <div class="menu-label drop" style="--d:.2s">TREASURE BOX</div>
+        <!-- 模拟从 posts.js 读到的真实最近文章 -->
+        <div class="treasure drop" style="--d:.26s"><div class="t-date">2026.06.24</div><div class="t-title">面经</div></div>
+        <div class="treasure drop" style="--d:.3s"><div class="t-date">2026.06.04</div><div class="t-title">地下城探险 · 项目拷打</div></div>
+        <div class="treasure drop" style="--d:.34s"><div class="t-date">2025.10.30</div><div class="t-title">（旧文示例）C++ 备忘录</div></div>
+    </aside>
+
+    <main>
+        <div class="hero drop" style="--d:0s">
+            <div class="hero-title">
+                <span class="echo" aria-hidden="true">TAKE<br>YOUR<br>TIME</span>
+                <span class="main">TAKE<br>YOUR<br>TIME</span>
+            </div>
+            <div class="hero-row">
+                <span class="hero-sub">Hello, I'm ℒℯℴ𝓃</span>
+                <span class="hero-typer" id="typer"></span>
+            </div>
+        </div>
+
+        <!-- 01 真实写作日历 -->
+        <div class="section-title drop" style="--d:.45s">
+            <span class="num">01</span><span class="txt">INTEL LOG</span><span class="line"></span>
+        </div>
+        <div class="drop" style="--d:.55s">
+            <div style="margin-bottom:10px; font-size:12px; color:#888; font-family:'Segoe UI'; font-style:italic; letter-spacing:2px;">
+                ⚡ READING POSTS.JS  REAL WRITING HISTORY — 非随机数据
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(18px,1fr)); gap:4px;" id="cal"></div>
+        </div>
+
+        <!-- 02 不等宽项目拼图 -->
+        <div class="section-title drop" style="--d:.7s">
+            <span class="num">02</span><span class="txt">SITE MAP</span><span class="line"></span>
+        </div>
+        <div class="mosaic">
+            <div class="mo-card drop big" data-no="BLOG" style="--r:-5deg; --d:.78s">
+                <div class="mo-corner">MAIN QUEST</div>
+                <div class="mo-icon">☁️</div>
+                <div class="mo-title">博客</div>
+                <div class="mo-desc">记录摆烂日常<br>最新：面经 · 地下城探险</div>
+            </div>
+            <div class="mo-card drop tall" data-no="LAB" style="--r:4deg; --d:.86s">
+                <div class="mo-corner">SIDE QUEST</div>
+                <div class="mo-icon">🎀</div>
+                <div class="mo-title">实验室</div>
+                <div class="mo-desc">收集有趣 html 作品与实验</div>
+            </div>
+            <div class="mo-card drop locked" data-no="LOCKED" style="--d:.92s">
+                <div class="mo-lock">🔒</div>
+                <div class="mo-title">云盘</div>
+                <div class="mo-desc">UNLOCK AT 2026.10</div>
+            </div>
+            <div class="mo-card drop" data-no="GAL" style="--d:.96s">
+                <div class="mo-corner">GALLERY</div>
+                <div class="mo-icon">🖼️</div>
+                <div class="mo-title">相册</div>
+                <div class="mo-desc">收藏存储的图片</div>
+            </div>
+        </div>
+
+        <!-- 03 技能 STATS 面板 -->
+        <div class="section-title drop" style="--d:1.05s">
+            <span class="num">03</span><span class="txt">STATS</span><span class="line"></span>
+        </div>
+        <div class="stats">
+            <div class="stat-group drop" style="--d:1.12s">
+                <div class="g-head"><span class="g-ico">👨‍💻</span><span class="g-name">FRONT</span><span class="g-side">DAILY DRIVER</span></div>
+                <div class="stat-row"><span class="s-name">JS/TS</span><div class="bar"><div class="bar-fill" data-w="90"></div></div><span class="rank s">S</span></div>
+                <div class="stat-row"><span class="s-name">Vue</span><div class="bar"><div class="bar-fill" data-w="85"></div></div><span class="rank s">S</span></div>
+                <div class="stat-row"><span class="s-name">React</span><div class="bar"><div class="bar-fill" data-w="70"></div></div><span class="rank a">A</span></div>
+                <div class="stat-row"><span class="s-name">CSS/动</span><div class="bar"><div class="bar-fill" data-w="80"></div></div><span class="rank a">A</span></div>
+            </div>
+            <div class="stat-group drop" style="--d:1.2s">
+                <div class="g-head"><span class="g-ico">⚙️</span><span class="g-name">BACK / SYS</span><span class="g-side">VER.2.0</span></div>
+                <div class="stat-row"><span class="s-name">Node</span><div class="bar"><div class="bar-fill" data-w="78"></div></div><span class="rank a">A</span></div>
+                <div class="stat-row"><span class="s-name">Python</span><div class="bar"><div class="bar-fill" data-w="75"></div></div><span class="rank a">A</span></div>
+                <div class="stat-row"><span class="s-name">C++/C#</span><div class="bar"><div class="bar-fill" data-w="82"></div></div><span class="rank s">S</span></div>
+                <div class="stat-row"><span class="s-name">SQL</span><div class="bar"><div class="bar-fill" data-w="68"></div></div><span class="rank b">B</span></div>
+            </div>
+            <div class="stat-group drop" style="--d:1.28s">
+                <div class="g-head"><span class="g-ico">🛠️</span><span class="g-name">INFRA</span><span class="g-side">LV UP SOON</span></div>
+                <div class="stat-row"><span class="s-name">Git</span><div class="bar"><div class="bar-fill" data-w="88"></div></div><span class="rank s">S</span></div>
+                <div class="stat-row"><span class="s-name">Docker</span><div class="bar"><div class="bar-fill" data-w="65"></div></div><span class="rank b">B</span></div>
+                <div class="stat-row"><span class="s-name">K8s</span><div class="bar"><div class="bar-fill" data-w="50"></div></div><span class="rank b">C</span></div>
+                <div class="stat-row"><span class="s-name">Rust</span><div class="bar"><div class="bar-fill" data-w="40"></div></div><span class="rank b">D</span></div>
+            </div>
+        </div>
+
+        <div class="slogan drop" style="--d:1.38s">
+            <div class="big">DEATH IS NOT AN <b>EXIT</b></div>
+            <span class="small">A FULL STACK TRANSFORMATION</span>
+        </div>
+    </main>
+</div>
+
+<script>
+// 入场
+document.querySelectorAll('.drop').forEach(el => el.classList.add('drop'));
+document.body.classList.add('staggered');
+
+// ===== 真实写作日历（模拟读 posts.js：有文章的日期亮） =====
+const cal = document.getElementById('cal');
+const postDays = new Set([0, 3, 9, 14, 15, 24, 35, 51, 60, 61]);
+const today = new Date();
+for (let i = 363; i >= 0; i--) {
+    const d = new Date(today); d.setDate(d.getDate() - i);
+    const key = d.toISOString().slice(0, 10);
+    const cell = document.createElement('div');
+    cell.style.cssText = 'aspect-ratio:1;border-radius:3px;background:rgba(255,255,255,.07);cursor:pointer;transition:.2s;';
+    if (postDays.has(i)) {
+        cell.style.background = 'var(--accent)';
+        cell.style.boxShadow = '0 0 8px var(--accent)';
+        cell.title = key + ' 发布文章';
+    }
+    cell.addEventListener('mouseenter', () => cell.style.transform='scale(1.4)');
+    cell.addEventListener('mouseleave', () => cell.style.transform='');
+    cell.addEventListener('click', () => {
+        cell.title = key;
+        alert((postDays.has(i)? '🗓 ' + key + ' 发布：《日记》\n' : '🗓 ' + key + '\n') + '(真实项目将跳转 blog.html#' + key + ')');
+    });
+    cal.appendChild(cell);
+}
+
+// ===== 技能条动画 =====
+setTimeout(() => {
+    document.querySelectorAll('.bar-fill').forEach(b => b.style.width = b.dataset.w + '%');
+}, 900);
+
+// ===== 打字机轮播 =====
+const lines = ['> wanna be a full stack developer.', '> current dungeon: FRONT-MAX', '> the night before the exam, the feeling of white paper.Fear and pity.'];
+const typer = document.getElementById('typer');
+let li = 0, ci = 0, deleting = false;
+function tick() {
+    const s = lines[li];
+    typer.textContent = s.slice(0, ci);
+    if (!deleting) {
+        if (ci++ < s.length) return setTimeout(tick, 55);
+        deleting = true; return setTimeout(tick, 1800);
+    } else {
+        if (ci-- > 0) return setTimeout(tick, 26);
+        deleting = false; li = (li + 1) % lines.length; setTimeout(tick, 380);
+    }
+}
+tick();
+
+// ===== 主题切换 =====
+function setTheme(t) {
+    document.documentElement.dataset.theme = t;
+    localStorage.setItem('p5r-theme', t);
+}
+const saved = localStorage.getItem('p5r-theme');
+if (saved) document.documentElement.dataset.theme = saved;
+</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>相册子页预览 — AI Chat 风</title>
+<style>
+:root { --bg:#faf9f5; --panel:#ffffff; --ink:#2b2b2b; --ink2:#6b6b6b; --line:#e8e4dc;
+        --accent:#d97757; --accent-soft:#f5e6de; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Segoe UI','Microsoft YaHei',sans-serif; background:var(--bg); color:var(--ink);
+    min-height:100vh; padding:22px 20px 60px; }
+
+.wrap { max-width:1280px; margin:0 auto; }
+
+/* ===== 头部 ===== */
+.hdr { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:20px 22px; margin-bottom:18px;
+    display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+.back { font-size:12.5px; color:var(--ink2); text-decoration:none; padding:7px 12px; border-radius:8px;
+    border:1px solid var(--line); transition:.15s; }
+.back:hover { color:var(--accent); border-color:var(--accent); background:var(--accent-soft); }
+.hdr .title { font-size:17px; font-weight:700; }
+.hdr .title em { font-style:normal; color:var(--accent); }
+.hdr .sub { font-size:12px; color:var(--ink2); margin-top:3px; }
+.hdr .count { margin-left:auto; font-size:11.5px; color:var(--ink2); background:var(--bg);
+    border:1px solid var(--line); border-radius:99px; padding:5px 13px; }
+
+/* ===== 工具条 ===== */
+.toolbar { display:flex; gap:9px; margin-bottom:16px; flex-wrap:wrap; }
+.tag-chip { background:var(--panel); border:1px solid var(--line); border-radius:99px; padding:6px 15px;
+    font-size:12px; color:var(--ink2); cursor:pointer; transition:.15s; }
+.tag-chip:hover { border-color:var(--accent); color:var(--accent); }
+.tag-chip.on { background:var(--ink); color:#fff; border-color:var(--ink); }
+
+/* ===== 网格 ===== */
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:18px; }
+.ph { background:var(--panel); border:1px solid var(--line); border-radius:13px; overflow:hidden;
+    cursor:pointer; transition:.18s; animation:rise .5s both; }
+.ph:nth-child(odd) { animation-delay:.05s; }
+.ph:hover { border-color:var(--accent); box-shadow:0 6px 20px rgba(217,119,87,.13); transform:translateY(-3px); }
+.ph .imgbox { aspect-ratio:4/3; background:linear-gradient(135deg,#f5e6de,#e8e4dc 50%,#dbe4ea);
+    display:flex; align-items:center; justify-content:center; font-size:42px; color:#b08968; }
+.ph img { width:100%; height:100%; object-fit:cover; display:block; }
+.ph .cap { display:flex; align-items:center; gap:8px; padding:10px 13px; }
+.ph .cap .c-ico { width:22px; height:22px; border-radius:6px; background:var(--accent-soft); color:var(--accent);
+    display:flex; align-items:center; justify-content:center; font-size:11px; flex-shrink:0; }
+.ph .cap .c-name { font-size:12.5px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.ph .cap .c-size { margin-left:auto; font-size:10.5px; color:var(--ink2); font-variant-numeric:tabular-nums; }
+@keyframes rise { 0% { opacity:0; transform:translateY(14px); } 100% { opacity:1; } }
+
+/* 示例图片站住位 */
+.ph.skel .imgbox { font-size:13px; color:#8a7668; letter-spacing:2px; }
+
+/* ===== 灯箱（示意静态态） ===== */
+.lightbox { margin-top:26px; background:#24292f; border-radius:14px; padding:26px; display:flex;
+    gap:18px; align-items:center; color:#ccc; }
+.lightbox .bigph { width:340px; aspect-ratio:4/3; border-radius:10px;
+    background:linear-gradient(135deg,#3b4350,#57606f); display:flex; align-items:center; justify-content:center;
+    color:#8b949e; font-size:12px; letter-spacing:2px; }
+.lightbox .l-info { font-size:13px; line-height:1.8; }
+.lightbox .l-info .l-name { color:#fff; font-weight:700; font-size:14px; }
+.lightbox .l-info .l-path { font-family:Consolas,monospace; font-size:11.5px; color:#79c0ff; }
+
+@media (max-width:860px) {
+    .grid { grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; }
+    .lightbox { flex-direction:column; }
+    .lightbox .bigph { width:100%; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+    <div class="hdr">
+        <a class="back" href="../index.html">← 返回工作台</a>
+        <div>
+            <div class="title">🖼️ 相册 · <em>GALLERY</em></div>
+            <div class="sub">「记录被存档的每一张」</div>
+        </div>
+        <span class="count">12 张 · 3.6 MB</span>
+    </div>
+
+    <div class="toolbar">
+        <span class="tag-chip on">全部</span>
+        <span class="tag-chip">截图</span>
+        <span class="tag-chip">设计图</span>
+        <span class="tag-chip">照片</span>
+    </div>
+
+    <div class="grid">
+        <div class="ph"><div class="imgbox img1"></div>
+            <div class="cap"><span class="c-ico">🖼️</span><span class="c-name">sample-background</span><span class="c-size">—</span></div></div>
+        <div class="ph"><div class="imgbox"></div>
+            <div class="cap"><span class="c-ico">🖼️</span><span class="c-name">（示例图 02）</span><span class="c-size">2.1 MB</span></div></div>
+        <div class="ph"><div class="imgbox"></div>
+            <div class="cap"><span class="c-ico">🖼️</span><span class="c-name">（示例图 03）</span><span class="c-size">864 KB</span></div></div>
+        <div class="ph"><div class="imgbox"></div>
+            <div class="cap"><span class="c-ico">🖼️</span><span class="c-name">（示例图 04）</span><span class="c-size">1.4 MB</span></div></div>
+    </div>
+
+    <style>
+        /* 示例占位符的彩色格 */
+        .img1 { background:linear-gradient(135deg,#f5e6de,#e9d8ca); }
+        .img2 { background:linear-gradient(135deg,#dbe4ea,#c9d6e2); }
+        .img3 { background:linear-gradient(135deg,#e6e0d3,#d4c5b0); }
+        .img4 { background:linear-gradient(135deg,#dce8dc,#c6d8c6); }
+    </style>
+</div>
+
+<script>
+// 给占位图分配彩色渐变
+document.querySelectorAll('.imgbox').forEach((el, i) => {
+    el.classList.add('img' + ((i % 4) + 1) || 'img4');
+    el.textContent = '';
+});
+</script>
+</body>
+</html>

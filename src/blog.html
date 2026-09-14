@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客 - ℒℯℴ𝓃</title>
+    <link rel="stylesheet" href="../css/blog.css">
+    <link rel="stylesheet" href="../css/p5r-theme.css">
+</head>
+<body>
+<div class="blog-wrap">
+    <!-- 左栏 -->
+    <aside class="blog-side">
+        <a class="back" href="../index.html">← 返回工作台</a>
+        <h1 class="side-h">📖 笔记 · <em>INTEL</em></h1>
+
+        <!-- 分类 Tab：全部 / 随笔 / 知识库 -->
+        <div class="tabs" id="kindTabs"></div>
+
+        <div id="featureCard"></div>
+        <div id="postList"></div>
+    </aside>
+
+    <!-- 右栏 -->
+    <main class="blog-main">
+        <div class="hdr" id="articleHead"></div>
+
+        <article id="content" class="article md"></article>
+
+        <div class="ghost-input">
+            <span id="ghostMsg">来点什么？</span>
+            <span class="caret"></span>
+            <span class="send">⏎</span>
+        </div>
+    </main>
+
+    <!-- 文章目录侧栏（知乎式 TOC） -->
+    <aside class="toc-side">
+        <div class="toc-panel">
+            <div class="toc-title">📑 目录</div>
+            <nav class="toc-nav" id="tocNav"></nav>
+        </div>
+    </aside>
+
+</div>
+
+<!-- 窄屏专用：文章内的目录行 -->
+<div class="toc-inline" id="tocInline"></div>
+
+<!-- 主题切换小组件 -->
+<div class="switch-group">
+    <button class="theme-sw sw-ai" data-theme="ai" title="AI Chat 主题"></button>
+    <button class="theme-sw sw-p5r" data-theme="p5r" title="P5R 主题"></button>
+</div>
+
+<!-- 本地打包的 marked，避免 file:// 下的跨域问题 -->
+<script src="../js/lib/marked.min.js"></script>
+<script src="../js/theme.js" defer></script>
+    <!-- 由 build.bat 生成的文章清单 -->
+    <script src="post/posts.js"></script>
+    <script src="../js/blog.js" defer></script>
+</body>
+</html>

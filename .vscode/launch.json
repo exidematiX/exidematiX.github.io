@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Open index.html",
-            "file": "d:\\BlogProject\\Blog2\\index.html"
+            "file": "${workspaceFolder}\\index.html"
         }
     ]
 }

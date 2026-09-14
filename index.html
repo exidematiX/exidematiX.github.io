@@ -5,104 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LeonKennedy - Wanna be a Full Stack Developer</title>
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/p5r-theme.css">
 </head>
 <body>
-    <div class="container">
-        <!-- 左侧边栏 -->
-        <aside class="sidebar">
-            <div class="profile">
-                <div class="avatar">👨‍🦰</div>
-                <div class="location">📍 China</div>
-                <div class="info">💼 5yrs</div>
+<div class="container">
+    <!-- 侧栏导航 -->
+    <aside class="sidebar">
+        <div class="side-brand">
+            <div class="logo">ℒ</div>
+            <div><div class="b-name">LeonKennedy</div><div class="b-sub">Full Stack · 5yrs</div></div>
+        </div>
+
+        <div class="sec-label">WORKSPACE</div>
+        <div class="nav-item on" id="nav-home"><span class="n-ico">🏠</span> 概览</div>
+        <div class="nav-item" id="nav-blog" tabindex="0"><span class="n-ico">📖</span> 笔记 <span class="n-badge" id="postCount"></span></div>
+        <div class="nav-item" id="nav-essay" tabindex="0"><span class="n-ico">✍️</span> 随笔 <span class="n-badge2" id="essayCount"></span></div>
+        <div class="nav-item" id="nav-kb" tabindex="0"><span class="n-ico">📚</span> 知识库 <span class="n-badge" id="kbCount"></span></div>
+        <div class="nav-item" id="nav-gallery" tabindex="0"><span class="n-ico">🖼️</span> 相册</div>
+        <div class="nav-item locked" id="nav-cloud"><span class="n-ico">☁️</span> 云盘 <span class="locked-tag">UNLOCK 2026.10</span></div>
+
+        <div class="sec-label">SHELF</div>
+        <div class="nav-item" id="nav-lab" tabindex="0"><span class="n-ico">⌨️</span> 实验室</div>
+
+        <div class="sec-label">WRITE LOCALLY</div>
+        <div class="side-note">把 .md 放入 src/post，双击 build.bat 发布。</div>
+    </aside>
+
+    <main>
+        <!-- 顶部状态 -->
+        <div class="topbar">
+            <div class="model-pill"><span class="dot"></span> <b>概览</b> · workspace</div>
+        </div>
+
+        <!-- Hero -->
+        <section class="hero">
+            <h1>早上好，这里是 <em>ℒℯℴ𝓃</em> 的工作台。</h1>
+            <p>The only way to do <strong>great</strong> is to <strong class="love">love</strong> what you do. 今天也要继续把自己推向前一格。</p>
+            <div class="chat-hint" id="chatHint"></div>
+        </section>
+
+        <!-- 功能双卡 -->
+        <div class="cards2">
+            <div class="aicard" id="blog-button" tabindex="0">
+                <div class="a-ico">📖</div>
+                <div class="a-name">博客</div>
+                <div class="a-desc" id="blogLatest"></div>
+                <div class="a-foot">进入 →</div>
             </div>
-
-            <div class="tags">
-                <span class="tag">前端</span>
-                <span class="tag">游戏开发</span>
-                <span class="tag">网瘾</span>
-                <span class="tag">Linux</span>
+            <div class="aicard" id="gallery-button" tabindex="0">
+                <div class="a-ico">🖼️</div>
+                <div class="a-name">相册 · 实验室</div>
+                <div class="a-desc">收集存储的图片与有趣的 html 作品。</div>
+                <div class="a-foot">进入 →</div>
             </div>
+        </div>
 
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div>敬请期待</div>
-                    <div class="timeline-date">2025.10</div>
-            </div>
-        </aside>
-
-        <!-- 主内容区 -->
-        <main class="main-content">
-            <header class="header">
-                <h1>Hello I'm <span class="name">ℒℯℴ𝓃</span></h1>
-                <div class="subtitle">😎 <strong>Full Stack</strong> Developer</div>
-                <div class="quote">
-                    🙋‍♀ The only way to do <span class="great">great</span> is to <span class="love">love</span> what you do.
-                </div>
-
-                <div class="social-links">
-                    <button class="social-btn">⚙️</button>
-                    <button class="social-btn">✉️</button>
-                    <button class="social-btn" onclick="window.location.href='https://github.com/exidematiX'">🔗</button>
-                    <button class="social-btn">🔔</button>
-                    <button class="social-btn">🌙</button>
-                </div>
-            </header>
-
-            <!-- GitHub贡献 -->
-            <section class="contributions">
-                <div class="contrib-grid" id="contribGrid"></div>
+        <!-- 最近文章 + 技能面板 -->
+        <div class="two-col">
+            <section class="panel">
+                <div class="panel-title">RECENT · 最近写作</div>
+                <div id="postMsgs"></div>
             </section>
 
-            <!-- 网站项目 -->
-            <section class="section">
-                <h2 class="section-title">🖥 site</h2>
-                <div class="projects-grid">
-                    <div class="project-card" id="blog-button">
-                        <div class="project-icon">☁️</div>
-                        <div class="project-title">博客</div>
-                        <div class="project-desc">记录摆烂日常</div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-icon">👻</div>
-                        <div class="project-title">云盘</div>
-                        <div class="project-desc">存储收藏文件</div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-icon">🎀</div>
-                        <div class="project-title">实验室</div>
-                        <div class="project-desc">收集有趣html作品</div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-icon">🎀</div>
-                        <div class="project-title">实验室</div>
-                        <div class="project-desc">收集有趣html作品</div>
-                    </div>
-                </div>
+            <section class="panel">
+                <div class="panel-title">STATS · 技能进度</div>
+                <div class="srow"><span class="s-name">JS/TS</span><div class="sbar"><div data-w="90"></div></div><span class="s-val">90</span></div>
+                <div class="srow"><span class="s-name">Vue</span><div class="sbar"><div data-w="85"></div></div><span class="s-val">85</span></div>
+                <div class="srow"><span class="s-name">C++/C#</span><div class="sbar"><div data-w="82"></div></div><span class="s-val">82</span></div>
+                <div class="srow"><span class="s-name">CSS/动</span><div class="sbar"><div data-w="80"></div></div><span class="s-val">80</span></div>
+                <div class="srow"><span class="s-name">Node</span><div class="sbar"><div data-w="78"></div></div><span class="s-val">78</span></div>
             </section>
+        </div>
 
-            <!-- 技能图标 -->
-            <section class="section">
-                <h2 class="section-title">skills</h2>
-                <div class="skills-grid">
-                    <div class="skill-icon" style="background: #d8765d;">HTML</div>
-                    <div class="skill-icon" style="background: #3e58c2;">CSS</div>
-                    <div class="skill-icon" style="background: #F7DF1E; color: #000;">JS</div>
-                    <div class="skill-icon" style="background: #61DAFB; color: #000;">⚛️</div>
-                    <div class="skill-icon" style="background: #42B883;">Vue</div>
-                    <div class="skill-icon" style="background: #3776AB;">Py</div>
-                    <div class="skill-icon" style="background: #339933;">Node</div>
-                    <div class="skill-icon" style="background: #00758F;">SQL</div>
-                    <div class="skill-icon" style="background: #E34F26;">Git</div>
-                    <div class="skill-icon" style="background: #2496ED;">🐳</div>
-                    <div class="skill-icon" style="background: #326CE5;">K8s</div>
-                    <div class="skill-icon" style="background: #FF6C37;">Rust</div>
-                    <div class="skill-icon" style="background: #007ACC;">TS</div>
-                    <div class="skill-icon" style="background: #31A8FF;">Ps</div>
-                    <div class="skill-icon" style="background: #00D8FF;">Figma</div>
-                </div>
-            </section>
-        </main>
-    </div>
+        <!-- 幽灵输入框 -->
+        <div class="ghost-input">
+            <span>来点什么？例如「写一篇文章」「整理面经」…</span>
+            <span class="caret"></span>
+            <span class="send">⏎</span>
+        </div>
+    </main>
+</div>
+
+<!-- 主题切换小组件 -->
+<div class="switch-group">
+    <button class="theme-sw sw-ai" data-theme="ai" title="AI Chat 主题"></button>
+    <button class="theme-sw sw-p5r" data-theme="p5r" title="P5R 主题"></button>
+</div>
+
+<script src="js/theme.js" defer></script>
+<script src="src/post/posts.js"></script>
+<script src="js/index.js" defer></script>
 </body>
-    <script src="js/index.js" defer></script>
 </html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>相册 - ℒℯℴ𝓃</title>
+    <link rel="stylesheet" href="../css/gallery.css">
+    <link rel="stylesheet" href="../css/p5r-theme.css">
+</head>
+<body>
+<div class="wrap">
+    <!-- 头部 -->
+    <div class="hdr">
+        <a class="back" href="../index.html">← 返回工作台</a>
+        <div>
+            <div class="title">🖼️ 相册 · <em>GALLERY</em></div>
+            <div class="sub">「记录被存档的每一张」</div>
+        </div>
+        <span class="count" id="galCount"></span>
+    </div>
+
+    <!-- 网格 -->
+    <main class="grid" id="galleryGrid"></main>
+
+    <!-- 幽灵输入框 -->
+    <div class="ghost-input">
+        <span>点击图片放大查看 · Esc 或 ✕ 关闭</span>
+        <span class="caret"></span>
+        <span class="send">⏎</span>
+    </div>
+</div>
+
+    <!-- 灯箱 -->
+    <figure class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose">✕</span>
+        <img class="lightbox-img" id="lightboxImg" alt="">
+        <figcaption class="lightbox-caption" id="lightboxCaption"></figcaption>
+    </figure>
+
+<!-- 主题切换小组件 -->
+<div class="switch-group">
+    <button class="theme-sw sw-ai" data-theme="ai" title="AI Chat 主题"></button>
+    <button class="theme-sw sw-p5r" data-theme="p5r" title="P5R 主题"></button>
+</div>
+
+<!-- 由 build.bat 生成的相册清单 -->
+<script src="../img/gallery/gallery.js"></script>
+<script src="../js/theme.js" defer></script>
+    <script src="../js/gallery.js" defer></script>
+</body>
+</html>
